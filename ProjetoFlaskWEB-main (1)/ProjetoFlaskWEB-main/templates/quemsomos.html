@@ -1,0 +1,461 @@
+<!DOCTYPE html>
+<html lang="pt-br" data-bs-theme="dark">
+<head>
+    <meta charset="UTF-8">
+    <title>iSolution PB - Nosso Time</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.css">
+
+    <style>
+        :root {
+            --primary-red: #FF3B30;
+            --primary-black: #000000;
+            --primary-white: #FFFFFF;
+            --dark-gray: #1C1C1E;
+            --light-gray: #8E8E93;
+        }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+            background-color: var(--primary-black);
+            color: var(--primary-white);
+            min-height: 100vh;
+        }
+
+        /* Hero Header */
+        .team-hero {
+            background: linear-gradient(rgba(0, 0, 0, 0.9), rgba(0, 0, 0, 0.95)),
+                        url('https://images.unsplash.com/photo-1517336714731-489689fd1ca8?ixlib=rb-4.0.3&auto=format&fit=crop&w=1926&q=80');
+            background-size: cover;
+            background-position: center;
+            padding: 100px 0 60px;
+            border-bottom: 3px solid var(--primary-red);
+            position: relative;
+        }
+
+        .team-hero::after {
+            content: '';
+            position: absolute;
+            bottom: -3px;
+            left: 0;
+            right: 0;
+            height: 3px;
+            background: linear-gradient(90deg, var(--primary-red) 0%, transparent 100%);
+        }
+
+        .page-title {
+            position: relative;
+            padding-bottom: 20px;
+            margin-bottom: 40px;
+        }
+
+        .page-title::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 100px;
+            height: 4px;
+            background-color: var(--primary-red);
+            border-radius: 2px;
+        }
+
+        /* Fotos redondas */
+        .team-photo {
+            width: 180px;
+            height: 180px;
+            object-fit: cover;
+            border-radius: 50%;
+            margin: 0 auto;
+            margin-top: 20px;
+            transition: transform .3s ease;
+            border: 4px solid var(--dark-gray);
+            position: relative;
+        }
+
+        .team-photo::after {
+            content: '';
+            position: absolute;
+            top: -4px;
+            left: -4px;
+            right: -4px;
+            bottom: -4px;
+            border-radius: 50%;
+            border: 2px solid var(--primary-red);
+            opacity: 0;
+            transition: opacity .3s ease;
+        }
+
+        /* Cards de Time */
+        .team-card {
+            background-color: var(--dark-gray);
+            border: 2px solid #2C2C2E;
+            border-radius: 15px;
+            transition: all 0.3s ease;
+            height: 100%;
+            overflow: hidden;
+            position: relative;
+        }
+
+        .team-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 4px;
+            background-color: var(--primary-red);
+            transform: scaleX(0);
+            transition: transform 0.3s ease;
+        }
+
+        .team-card:hover::before {
+            transform: scaleX(1);
+        }
+
+        /* Hover no card */
+        .team-card:hover .team-photo {
+            transform: scale(1.07);
+        }
+
+        .team-card:hover .team-photo::after {
+            opacity: 1;
+        }
+
+        .team-card:hover {
+            transform: translateY(-10px);
+            border-color: var(--primary-red);
+            box-shadow: 0 15px 30px rgba(255, 59, 48, 0.15);
+        }
+
+        /* Cargo estilizado */
+        .team-role {
+            font-size: 0.9rem;
+            color: var(--primary-red);
+            font-weight: 600;
+            margin-bottom: 10px;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+
+        .team-quote {
+            color: var(--light-gray);
+            font-style: italic;
+            position: relative;
+            padding: 15px;
+            background: rgba(255, 59, 48, 0.05);
+            border-radius: 8px;
+            margin-top: 15px;
+        }
+
+        .team-quote::before {
+            content: '"';
+            position: absolute;
+            top: -10px;
+            left: 10px;
+            font-size: 2rem;
+            color: var(--primary-red);
+            font-family: Georgia, serif;
+        }
+
+        /* Ícones sociais */
+        .social-links a {
+            width: 40px;
+            height: 40px;
+            background-color: rgba(255, 59, 48, 0.1);
+            border: 2px solid var(--primary-red);
+            color: var(--primary-red);
+            border-radius: 50%;
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            margin: 0 5px;
+            font-size: 1.1rem;
+            transition: all 0.3s ease;
+        }
+
+        .social-links a:hover {
+            background-color: var(--primary-red);
+            color: var(--primary-white);
+            transform: translateY(-3px);
+        }
+
+        /* Section Spacing */
+        .team-section {
+            padding: 80px 0;
+        }
+
+        /* Responsive */
+        @media (max-width: 768px) {
+            .team-hero {
+                padding: 80px 0 40px;
+            }
+
+            .team-section {
+                padding: 40px 0;
+            }
+        }
+
+        /* Member Name */
+        .member-name {
+            color: var(--primary-white);
+            font-weight: 700;
+            margin: 15px 0 5px;
+            position: relative;
+            display: inline-block;
+        }
+
+        .member-name::after {
+            content: '';
+            position: absolute;
+            bottom: -5px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 40px;
+            height: 2px;
+            background-color: var(--primary-red);
+            border-radius: 1px;
+        }
+    </style>
+
+</head>
+<body>
+
+<!-- NAVBAR ORIGINAL (NÃO ALTERADA) -->
+<nav class="navbar navbar-expand-lg bg-body-tertiary">
+  <div class="container-fluid">
+    <a class="navbar-brand" href="#">iSolution PB</a>
+    <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent">
+      <span class="navbar-toggler-icon"></span>
+    </button>
+
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+      <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+        <li class="nav-item">
+          <a class="nav-link" href="/index"> Início </a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link active" href="/quemsomos">Nosso Time</a>
+        </li>
+        <li class="nav-item dropdown">
+          <a class="nav-link dropdown-toggle" href="#" data-bs-toggle="dropdown">Produtos</a>
+          <ul class="dropdown-menu">
+            <li><a class="dropdown-item" href="/iphone">iPhones</a></li>
+            <li><a class="dropdown-item" href="/ipads">iPads</a></li>
+            <li><a class="dropdown-item" href="/macbooks">MacBooks</a></li>
+            <li><a class="dropdown-item" href="/acessorios">Acessórios</a></li>
+          </ul>
+        </li>
+        <li class="nav-item">
+            <a class="nav-link" href="/galeriadeclientes">Clientes</a>
+        </li>
+        <li class="nav-item">
+            <a class="nav-link" href="/tire_suas_duvidas">Assistente Virtual</a>
+        </li>
+      </ul>
+    </div>
+  </div>
+</nav>
+
+<!-- Hero Section -->
+<section class="team-hero">
+    <div class="container">
+        <div class="row">
+            <div class="col-12 text-center">
+                <h1 class="display-4 fw-bold page-title">Nosso Time</h1>
+                <p class="lead" style="color: var(--light-gray); max-width: 700px; margin: 0 auto;">
+                    Conheça a equipe especializada que faz da iSolution PB a referência em qualidade
+                    e atendimento Apple em João Pessoa.
+                </p>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- Team Section -->
+<section class="team-section">
+    <div class="container">
+        <div class="row row-cols-1 row-cols-md-2 row-cols-lg-3 g-4">
+
+            <!-- Membro 1 -->
+            <div class="col">
+                <div class="team-card text-center p-4">
+                    <img src="#"
+                         class="team-photo" alt="Nicácio">
+                    <div class="card-body">
+                        <h5 class="member-name">Nicácio</h5>
+                        <p class="team-role">Fundador & CEO</p>
+                        <p class="team-quote">
+                            Tô de olho em todos! Garantindo que cada cliente tenha a melhor experiência Apple possível.
+                        </p>
+                        <div class="social-links mt-4">
+                            <a href="#"><i class="bi bi-linkedin"></i></a>
+                            <a href="#"><i class="bi bi-github"></i></a>
+                            <a href="#"><i class="bi bi-instagram"></i></a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Membro 2 -->
+            <div class="col">
+                <div class="team-card text-center p-4">
+                    <img src="#"
+                         class="team-photo" alt="Leonardo">
+                    <div class="card-body">
+                        <h5 class="member-name">Leonardo</h5>
+                        <p class="team-role">Gerente Comercial</p>
+                        <p class="team-quote">
+                            Quem dorme não vende! Sempre em busca das melhores soluções para nossos clientes.
+                        </p>
+                        <div class="social-links mt-4">
+                            <a href="https://github.com/leandrooliveiracode"><i class="bi bi-github"></i></a>
+                            <a href="https://www.instagram.com/leandroliveira.s"><i class="bi bi-instagram"></i></a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Membro 3 -->
+            <div class="col">
+                <div class="team-card text-center p-4">
+                    <img src="#"
+                         class="team-photo" alt="Alex">
+                    <div class="card-body">
+                        <h5 class="member-name">Alex</h5>
+                        <p class="team-role">Vendedor Líder</p>
+                        <p class="team-quote">
+                            Fica tranquilo, já bati a meta! E agora vou ajudar você a encontrar o produto perfeito.
+                        </p>
+                        <div class="social-links mt-4">
+                            <a href="https://www.linkedin.com/in/alex-carvalho-146a12127/"><i class="bi bi-linkedin"></i></a>
+                            <a href="https://github.com/AlexCarvalho1989"><i class="bi bi-github"></i></a>
+                            <a href="https://www.instagram.com/alex_caarvaalho"><i class="bi bi-instagram"></i></a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Membro 4 -->
+            <div class="col">
+                <div class="team-card text-center p-4">
+                    <img src="#"
+                         class="team-photo" alt="Guilherme">
+                    <div class="card-body">
+                        <h5 class="member-name">Guilherme</h5>
+                        <p class="team-role">Especialista em Marketing</p>
+                        <p class="team-quote">
+                            O meu negócio é só marketing. E fazer com que mais pessoas conheçam nossa qualidade.
+                        </p>
+                        <div class="social-links mt-4">
+                            <a href="https://www.linkedin.com/in/luis-guilherme-652410374?utm_source=share&utm_campaign=share_via&utm_content=profile&utm_medium=android_app"><i class="bi bi-linkedin"></i></a>
+                            <a href="https://github.com/Guilhermebrzd"><i class="bi bi-github"></i></a>
+                            <a href="https://www.instagram.com/_guilherme.zx?igsh=MXJnYjM2azBlYjlwNQ=="><i class="bi bi-instagram"></i></a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Membro 5 -->
+            <div class="col">
+                <div class="team-card text-center p-4">
+                    <img src="#"
+                         class="team-photo" alt="Alexandre">
+                    <div class="card-body">
+                        <h5 class="member-name">Alexandre</h5>
+                        <p class="team-role">Técnico Especialista</p>
+                        <p class="team-quote">
+                            Trabalho muito e ganho pouco, mas a satisfação em consertar um dispositivo vale cada esforço.
+                        </p>
+                        <div class="social-links mt-4">
+                            <a href="https://www.linkedin.com/in/alexandresrmaia/"><i class="bi bi-linkedin"></i></a>
+                            <a href="https://github.com/AlexandresrMaia"><i class="bi bi-github"></i></a>
+                            <a href="https://www.instagram.com/alesrmaia/"><i class="bi bi-instagram"></i></a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- Team Philosophy Section -->
+<section style="background-color: var(--dark-gray); padding: 80px 0; border-top: 3px solid var(--primary-red);">
+    <div class="container">
+        <div class="row align-items-center">
+            <div class="col-lg-6">
+                <h2 class="display-6 fw-bold mb-4">Nossa <span style="color: var(--primary-red)">Filosofia</span></h2>
+                <p class="lead text-gray" style="font-size: 1.1rem;">
+                    Na iSolution PB, acreditamos que pessoas fazem a diferença. Cada membro da nossa equipe
+                    é treinado não apenas em tecnologia Apple, mas também em proporcionar a melhor experiência
+                    ao cliente.
+                </p>
+                <p class="text-gray">
+                    Nosso compromisso vai além da venda de produtos. Oferecemos consultoria especializada,
+                    suporte técnico certificado e um atendimento que entende suas necessidades reais.
+                </p>
+                <div class="mt-4">
+                    <a href="/galeriadeclientes" class="btn" style="background-color: var(--primary-red); color: white; border-radius: 25px; padding: 12px 30px; font-weight: 600;">
+                        <i class="bi bi-chat-left-text me-2"></i> Ver Depoimentos de Clientes
+                    </a>
+                </div>
+            </div>
+            <div class="col-lg-6 mt-4 mt-lg-0">
+                <div class="row g-3">
+                    <div class="col-6">
+                        <div class="p-4 text-center" style="background-color: rgba(255, 59, 48, 0.1); border-radius: 15px; border: 2px solid var(--primary-red);">
+                            <i class="bi bi-award display-6 mb-3" style="color: var(--primary-red);"></i>
+                            <h5 class="fw-bold">Certificações</h5>
+                            <p class="text-gray small">Equipe com certificações Apple</p>
+                        </div>
+                    </div>
+                    <div class="col-6">
+                        <div class="p-4 text-center" style="background-color: rgba(255, 59, 48, 0.1); border-radius: 15px; border: 2px solid var(--primary-red);">
+                            <i class="bi bi-clock-history display-6 mb-3" style="color: var(--primary-red);"></i>
+                            <h5 class="fw-bold">Experiência</h5>
+                            <p class="text-gray small">+5 anos no mercado Apple</p>
+                        </div>
+                    </div>
+                    <div class="col-6">
+                        <div class="p-4 text-center" style="background-color: rgba(255, 59, 48, 0.1); border-radius: 15px; border: 2px solid var(--primary-red);">
+                            <i class="bi bi-people display-6 mb-3" style="color: var(--primary-red);"></i>
+                            <h5 class="fw-bold">Atendimento</h5>
+                            <p class="text-gray small">Foco no cliente primeiro</p>
+                        </div>
+                    </div>
+                    <div class="col-6">
+                        <div class="p-4 text-center" style="background-color: rgba(255, 59, 48, 0.1); border-radius: 15px; border: 2px solid var(--primary-red);">
+                            <i class="bi bi-shield-check display-6 mb-3" style="color: var(--primary-red);"></i>
+                            <h5 class="fw-bold">Garantia</h5>
+                            <p class="text-gray small">Suporte pós-venda garantido</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/js/bootstrap.bundle.min.js"></script>
+
+<script>
+    // Animação para os cards
+    document.addEventListener('DOMContentLoaded', function() {
+        const cards = document.querySelectorAll('.team-card');
+
+        cards.forEach((card, index) => {
+            card.style.opacity = '0';
+            card.style.transform = 'translateY(30px)';
+            card.style.transition = 'opacity 0.6s ease, transform 0.6s ease';
+
+            setTimeout(() => {
+                card.style.opacity = '1';
+                card.style.transform = 'translateY(0)';
+            }, 100 * index);
+        });
+    });
+</script>
+
+</body>
+</html>

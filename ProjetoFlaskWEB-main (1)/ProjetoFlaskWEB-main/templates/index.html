@@ -1,0 +1,677 @@
+<!DOCTYPE html>
+<html lang="pt-br" data-bs-theme="dark">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>iSolution PB - Excelência Apple em João Pessoa</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-sRIl4kxILFvY47J16cr9ZwB07vP4J8+LH7qKQnuqkuIAvNWLzeN8tE5YBujZqJLB" crossorigin="anonymous">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.css">
+    <style>
+        :root {
+            --primary-red: #FF3B30;
+            --primary-black: #000000;
+            --primary-white: #FFFFFF;
+            --dark-gray: #1C1C1E;
+            --light-gray: #8E8E93;
+        }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+            background-color: var(--primary-black);
+            color: var(--primary-white);
+        }
+
+        /* Hero Section */
+        .hero-section {
+            background: linear-gradient(rgba(0, 0, 0, 0.9), rgba(0, 0, 0, 0.95)),
+                        url('https://images.unsplash.com/photo-1517336714731-489689fd1ca8?ixlib=rb-4.0.3&auto=format&fit=crop&w=1926&q=80');
+            background-size: cover;
+            background-position: center;
+            padding: 120px 0 80px;
+            position: relative;
+            border-bottom: 3px solid var(--primary-red);
+        }
+
+        .hero-section::after {
+            content: '';
+            position: absolute;
+            bottom: -3px;
+            left: 0;
+            right: 0;
+            height: 3px;
+            background: linear-gradient(90deg, var(--primary-red) 0%, transparent 100%);
+        }
+
+        .badge-red {
+            background-color: var(--primary-red);
+            color: var(--primary-white);
+            padding: 8px 20px;
+            border-radius: 25px;
+            font-size: 0.9rem;
+            font-weight: 600;
+            display: inline-block;
+            margin-bottom: 25px;
+            border: 2px solid rgba(255, 59, 48, 0.3);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .badge-red::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.2), transparent);
+            animation: shine 3s infinite;
+        }
+
+        @keyframes shine {
+            0% { left: -100%; }
+            100% { left: 100%; }
+        }
+
+        /* Cards */
+        .quality-card {
+            background-color: var(--dark-gray);
+            border: 2px solid #2C2C2E;
+            border-radius: 15px;
+            padding: 35px 25px;
+            height: 100%;
+            transition: all 0.3s ease;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .quality-card:hover {
+            transform: translateY(-8px);
+            border-color: var(--primary-red);
+            box-shadow: 0 10px 30px rgba(255, 59, 48, 0.2);
+        }
+
+        .quality-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 4px;
+            background-color: var(--primary-red);
+            transform: scaleX(0);
+            transition: transform 0.3s ease;
+        }
+
+        .quality-card:hover::before {
+            transform: scaleX(1);
+        }
+
+        .icon-red {
+            width: 70px;
+            height: 70px;
+            background-color: rgba(255, 59, 48, 0.1);
+            border: 2px solid var(--primary-red);
+            border-radius: 15px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin-bottom: 25px;
+            font-size: 1.8rem;
+            color: var(--primary-red);
+            transition: all 0.3s ease;
+        }
+
+        .quality-card:hover .icon-red {
+            background-color: var(--primary-red);
+            color: var(--primary-white);
+            transform: rotate(10deg);
+        }
+
+        /* Assistência Section */
+        .assistance-section {
+            background-color: var(--dark-gray);
+            border-radius: 20px;
+            padding: 60px;
+            margin: 80px 0;
+            border: 2px solid #2C2C2E;
+            position: relative;
+        }
+
+        .assistance-section::before {
+            content: '';
+            position: absolute;
+            top: -10px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 100px;
+            height: 5px;
+            background-color: var(--primary-red);
+            border-radius: 5px;
+        }
+
+        .service-item {
+            background-color: rgba(255, 59, 48, 0.05);
+            border-left: 4px solid var(--primary-red);
+            border-radius: 8px;
+            padding: 20px;
+            margin-bottom: 15px;
+            transition: all 0.3s ease;
+            border-right: 1px solid #2C2C2E;
+            border-top: 1px solid #2C2C2E;
+            border-bottom: 1px solid #2C2C2E;
+        }
+
+        .service-item:hover {
+            background-color: rgba(255, 59, 48, 0.1);
+            transform: translateX(10px);
+        }
+
+        /* Botões */
+        .btn-red {
+            background-color: var(--primary-red);
+            color: var(--primary-white);
+            border: 2px solid var(--primary-red);
+            border-radius: 25px;
+            padding: 12px 30px;
+            font-weight: 600;
+            transition: all 0.3s ease;
+        }
+
+        .btn-red:hover {
+            background-color: transparent;
+            color: var(--primary-red);
+            transform: translateY(-3px);
+            box-shadow: 0 10px 20px rgba(255, 59, 48, 0.3);
+        }
+
+        .btn-outline-red {
+            background-color: transparent;
+            color: var(--primary-red);
+            border: 2px solid var(--primary-red);
+            border-radius: 25px;
+            padding: 12px 30px;
+            font-weight: 600;
+            transition: all 0.3s ease;
+        }
+
+        .btn-outline-red:hover {
+            background-color: var(--primary-red);
+            color: var(--primary-white);
+            transform: translateY(-3px);
+        }
+
+        /* Testimonials */
+        .testimonial-card {
+            background-color: var(--dark-gray);
+            border: 2px solid #2C2C2E;
+            border-radius: 15px;
+            padding: 30px;
+            transition: all 0.3s ease;
+        }
+
+        .testimonial-card:hover {
+            border-color: var(--primary-red);
+            transform: translateY(-5px);
+        }
+
+        .client-avatar {
+            width: 60px;
+            height: 60px;
+            border-radius: 50%;
+            object-fit: cover;
+            border: 3px solid var(--primary-red);
+        }
+
+        .rating-red {
+            color: var(--primary-red);
+        }
+
+        /* Stats */
+        .stat-box {
+            text-align: center;
+            padding: 30px;
+        }
+
+        .stat-number {
+            font-size: 2.8rem;
+            font-weight: bold;
+            color: var(--primary-red);
+            margin-bottom: 10px;
+            text-shadow: 0 0 20px rgba(255, 59, 48, 0.3);
+        }
+
+        /* Cores do texto */
+        .text-gray {
+            color: var(--light-gray);
+        }
+
+        .text-red {
+            color: var(--primary-red);
+        }
+
+        /* Responsividade */
+        @media (max-width: 768px) {
+            .hero-section {
+                padding: 100px 0 60px;
+            }
+
+            .assistance-section {
+                padding: 30px;
+            }
+
+            .display-4 {
+                font-size: 2.5rem;
+            }
+        }
+
+        section {
+            padding: 80px 0;
+        }
+
+        .section-title {
+            position: relative;
+            padding-bottom: 20px;
+            margin-bottom: 40px;
+        }
+
+        .section-title::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 80px;
+            height: 4px;
+            background-color: var(--primary-red);
+            border-radius: 2px;
+        }
+
+        .section-title-center::after {
+            left: 50%;
+            transform: translateX(-50%);
+        }
+
+        /* Hover Effects */
+        .hover-lift {
+            transition: transform 0.3s ease;
+        }
+
+        .hover-lift:hover {
+            transform: translateY(-5px);
+        }
+
+        /* Divider */
+        .divider-red {
+            height: 3px;
+            background: linear-gradient(90deg, var(--primary-black) 0%, var(--primary-red) 50%, var(--primary-black) 100%);
+            margin: 60px 0;
+        }
+    </style>
+</head>
+<body>
+    <!-- NAVBAR ORIGINAL (NÃO ALTERADA) -->
+    <nav class="navbar navbar-expand-lg bg-body-tertiary">
+      <div class="container-fluid">
+        <a class="navbar-brand" href="#">iSolution PB</a>
+        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+          <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarSupportedContent">
+          <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+            <li class="nav-item">
+              <a class="nav-link active" aria-current="page" href="/index">Ínicio</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" href="/quemsomos">Nosso Time</a>
+            </li>
+            <li class="nav-item dropdown">
+              <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">Produtos</a>
+              <ul class="dropdown-menu">
+                <li><a class="dropdown-item" href="/iphone">iPhones</a></li>
+                <li><a class="dropdown-item" href="/ipads">iPads</a></li>
+                <li><a class="dropdown-item" href="/macbooks">MacBooks</a></li>
+                <li><a class="dropdown-item" href="/acessorios">Acessórios</a></li>
+              </ul>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" href="/galeriadeclientes">Clientes</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" href="/tire_suas_duvidas">Assistente Virtual</a>
+            </li>
+          </ul>
+        </div>
+      </div>
+    </nav>
+
+    <!-- Hero Section -->
+    <section class="hero-section">
+        <div class="container">
+            <div class="row align-items-center">
+                <div class="col-lg-7">
+                    <span class="badge-red">
+                        <i class="bi bi-award me-2"></i>Excelência Comprovada
+                    </span>
+                    <h1 class="display-4 fw-bold mb-4">
+                        Qualidade Apple com <span class="text-red">Atendimento Premium</span>
+                    </h1>
+                    <p class="lead mb-4" style="font-size: 1.25rem; color: #CCCCCC;">
+                        Na iSolution PB, entregamos mais do que produtos Apple - oferecemos uma experiência completa
+                        de atendimento personalizado e assistência técnica especializada em João Pessoa.
+                    </p>
+                    <div class="d-flex flex-wrap gap-3">
+                        <a href="#qualidade" class="btn-red">
+                            <i class="bi bi-stars me-2"></i> Nossa Qualidade
+                        </a>
+                        <a href="#assistencia" class="btn-outline-red">
+                            <i class="bi bi-tools me-2"></i> Assistência Técnica
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Stats Section -->
+    <section>
+        <div class="container">
+            <div class="row">
+                <div class="col-md-3 col-6">
+                    <div class="stat-box hover-lift">
+                        <div class="stat-number">98%</div>
+                        <p class="text-gray">Satisfação dos Clientes</p>
+                    </div>
+                </div>
+                <div class="col-md-3 col-6">
+                    <div class="stat-box hover-lift">
+                        <div class="stat-number">500+</div>
+                        <p class="text-gray">Clientes Atendidos</p>
+                    </div>
+                </div>
+                <div class="col-md-3 col-6">
+                    <div class="stat-box hover-lift">
+                        <div class="stat-number">24h</div>
+                        <p class="text-gray">Suporte Rápido</p>
+                    </div>
+                </div>
+                <div class="col-md-3 col-6">
+                    <div class="stat-box hover-lift">
+                        <div class="stat-number"> 5 meses à 1 ano</div>
+                        <p class="text-gray">Garantia Estendida</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <div class="divider-red"></div>
+
+    <!-- Qualidade Section -->
+    <section id="qualidade">
+        <div class="container">
+            <div class="row mb-5">
+                <div class="col-12">
+                    <h2 class="display-5 fw-bold section-title">Nossa Filosofia de Qualidade</h2>
+                    <p class="lead text-gray">Excelência em cada detalhe do atendimento</p>
+                </div>
+            </div>
+
+            <div class="row g-4">
+                <div class="col-lg-4 col-md-6">
+                    <div class="quality-card">
+                        <div class="icon-red">
+                            <i class="bi bi-person-check"></i>
+                        </div>
+                        <h4 class="fw-bold mb-3">Atendimento Personalizado</h4>
+                        <p class="text-gray">
+                            Cada cliente recebe atenção exclusiva. Analisamos suas necessidades específicas
+                            e oferecemos a solução perfeita para você, com acompanhamento completo.
+                        </p>
+                    </div>
+                </div>
+
+                <div class="col-lg-4 col-md-6">
+                    <div class="quality-card">
+                        <div class="icon-red">
+                            <i class="bi bi-shield-check"></i>
+                        </div>
+                        <h4 class="fw-bold mb-3">Garantia de Qualidade</h4>
+                        <p class="text-gray">
+                            Todos os produtos passam por inspeção rigorosa em 7 pontos. Fornecemos laudo
+                            técnico detalhado e garantia estendida para sua total tranquilidade.
+                        </p>
+                    </div>
+                </div>
+
+                <div class="col-lg-4 col-md-6">
+                    <div class="quality-card">
+                        <div class="icon-red">
+                            <i class="bi bi-clock-history"></i>
+                        </div>
+                        <h4 class="fw-bold mb-3">Processo Transparente</h4>
+                        <p class="text-gray">
+                            Comunicação clara e honesta em todas as etapas. Mantemos você informado
+                            do início ao fim, com prazos realistas e atualizações constantes.
+                        </p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Assistência Técnica -->
+    <section id="assistencia" class="assistance-section">
+        <div class="container">
+            <div class="row align-items-center">
+                <div class="col-lg-6 mb-4 mb-lg-0">
+                    <span class="badge-red mb-3">
+                        <i class="bi bi-tools me-2"></i>Assistência Especializada
+                    </span>
+                    <h2 class="display-5 fw-bold mb-4">Suporte Técnico <br><span class="text-red">de Primeira Linha</span></h2>
+                    <p class="text-gray" style="font-size: 1.1rem;">
+                        Nossa equipe técnica é especializada exclusivamente em produtos Apple.
+                        Utilizamos peças primeira linha e com extrema qualidade além de seguirmos rigorosos protocolos para garantir o melhor para os nossos clientes.
+                    </p>
+                </div>
+
+                <div class="col-lg-6">
+                    <div class="service-item">
+                        <div class="d-flex align-items-center">
+                            <i class="bi bi-gear-fill fs-4 me-3 text-red"></i>
+                            <div>
+                                <h5 class="fw-bold mb-1">Manutenção Preventiva</h5>
+                                <p class="mb-0 text-gray" style="font-size: 0.95rem;">
+                                    Serviços regulares para prolongar a vida útil do seu dispositivo
+                                </p>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="service-item">
+                        <div class="d-flex align-items-center">
+                            <i class="bi bi-battery-charging fs-4 me-3 text-red"></i>
+                            <div>
+                                <h5 class="fw-bold mb-1">Troca de Baterias</h5>
+                                <p class="mb-0 text-gray" style="font-size: 0.95rem;">
+                                    Baterias primeira linha com garantia e máxima segurança
+                                </p>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="service-item">
+                        <div class="d-flex align-items-center">
+                            <i class="bi bi-display fs-4 me-3 text-red"></i>
+                            <div>
+                                <h5 class="fw-bold mb-1">Reparo de Telas</h5>
+                                <p class="mb-0 text-gray" style="font-size: 0.95rem;">
+                                    Substituição com componentes primeira linha!
+                                </p>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="service-item">
+                        <div class="d-flex align-items-center">
+                            <i class="bi bi-cloud-arrow-up fs-4 me-3 text-red"></i>
+                            <div>
+                                <h5 class="fw-bold mb-1">Recuperação de Dados</h5>
+                                <p class="mb-0 text-gray" style="font-size: 0.95rem;">
+                                    Recuperamos seus arquivos importantes com total segurança
+                                </p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Testimonials -->
+    <section>
+        <div class="container">
+            <div class="row mb-5">
+                <div class="col-12 text-center">
+                    <h2 class="display-5 fw-bold section-title section-title-center">O que Nossos Clientes Dizem</h2>
+                    <p class="lead text-gray">Confiança construída através da qualidade</p>
+                </div>
+            </div>
+
+            <div class="row g-4">
+                <div class="col-lg-4">
+                    <div class="testimonial-card hover-lift">
+                        <div class="d-flex align-items-center mb-3">
+                            <img src="#" alt="Cliente" class="client-avatar me-3">
+                            <div>
+                                <h5 class="fw-bold mb-1">Zezinho</h5>
+                                <div class="rating-red">
+                                    <i class="bi bi-star-fill"></i>
+                                    <i class="bi bi-star-fill"></i>
+                                    <i class="bi bi-star-fill"></i>
+                                    <i class="bi bi-star-fill"></i>
+                                    <i class="bi bi-star-fill"></i>
+                                </div>
+                            </div>
+                        </div>
+                        <p class="text-gray">
+                            "Recomendo! Atendimento maravilhoso e assistencia impecável"
+                        </p>
+                    </div>
+                </div>
+
+                <div class="col-lg-4">
+                    <div class="testimonial-card hover-lift">
+                        <div class="d-flex align-items-center mb-3">
+                            <img src="#" alt="Cliente" class="client-avatar me-3">
+                            <div>
+                                <h5 class="fw-bold mb-1">Luisinho</h5>
+                                <div class="rating-red">
+                                    <i class="bi bi-star-fill"></i>
+                                    <i class="bi bi-star-fill"></i>
+                                    <i class="bi bi-star-fill"></i>
+                                    <i class="bi bi-star-fill"></i>
+                                    <i class="bi bi-star-fill"></i>
+                                </div>
+                            </div>
+                        </div>
+                        <p class="text-gray">
+                            "Fui na onda do vendedor e me lasquei! Estou viciado nos produtos da Apple!"
+                        </p>
+                    </div>
+                </div>
+
+                <div class="col-lg-4">
+                    <div class="testimonial-card hover-lift">
+                        <div class="d-flex align-items-center mb-3">
+                            <img src="#" alt="Cliente" class="client-avatar me-3">
+                            <div>
+                                <h5 class="fw-bold mb-1">Higuinho</h5>
+                                <div class="rating-red">
+                                    <i class="bi bi-star-fill"></i>
+                                    <i class="bi bi-star-fill"></i>
+                                    <i class="bi bi-star-fill"></i>
+                                    <i class="bi bi-star-fill"></i>
+                                    <i class="bi bi-star-fill"></i>
+                                </div>
+                            </div>
+                        </div>
+                        <p class="text-gray">
+                            "Atendimento excelente e produto com extrama qualidade!"
+                        </p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- CTA Final -->
+    <section style="background-color: var(--dark-gray); padding: 100px 0; border-top: 3px solid var(--primary-red);">
+        <div class="container">
+            <div class="row justify-content-center">
+                <div class="col-lg-8 text-center">
+                    <h2 class="display-5 fw-bold mb-4">Experimente a Diferença <span class="text-red">iSolution PB</span></h2>
+                    <p class="lead mb-4 text-gray" style="font-size: 1.2rem;">
+                        Entre em contato e descubra por que somos referência em qualidade de atendimento
+                        e assistência técnica Apple em João Pessoa.
+                    </p>
+                    <div class="d-flex flex-wrap justify-content-center gap-3">
+                        <a href="/quemsomos" class="btn-red">
+                            <i class="bi bi-people me-2"></i> Conhecer Nosso Time
+                        </a>
+                        <a href="/galeriadeclientes" class="btn-outline-red">
+                            <i class="bi bi-chat-left-text me-2"></i> Ver Depoimentos
+                        </a>
+                        <a href="/tire_suas_duvidas" class="btn-red">
+                            <i class="bi bi-robot me-2"></i> Assistente Virtual
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/js/bootstrap.bundle.min.js" integrity="sha384-FKyoEForCGlyvwx9Hj09JcYn3nv7wiPVlz7YYwJrWVcXK/BmnVDxM+D2scQbITxI" crossorigin="anonymous"></script>
+
+    <script>
+        // Smooth scroll para âncoras
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                e.preventDefault();
+                const targetId = this.getAttribute('href');
+                if (targetId !== '#') {
+                    const targetElement = document.querySelector(targetId);
+                    if (targetElement) {
+                        window.scrollTo({
+                            top: targetElement.offsetTop - 80,
+                            behavior: 'smooth'
+                        });
+                    }
+                }
+            });
+        });
+
+        // Adiciona classe active ao card quando em viewport
+        const observerOptions = {
+            threshold: 0.1,
+            rootMargin: '0px 0px -50px 0px'
+        };
+
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.style.opacity = '1';
+                    entry.target.style.transform = 'translateY(0)';
+                }
+            });
+        }, observerOptions);
+
+        // Configura animação inicial para os cards
+        document.querySelectorAll('.quality-card, .testimonial-card').forEach((card, index) => {
+            card.style.opacity = '0';
+            card.style.transform = 'translateY(30px)';
+            card.style.transition = 'opacity 0.6s ease, transform 0.6s ease';
+            card.style.transitionDelay = `${index * 0.1}s`;
+            observer.observe(card);
+        });
+    </script>
+</body>
+</html>
