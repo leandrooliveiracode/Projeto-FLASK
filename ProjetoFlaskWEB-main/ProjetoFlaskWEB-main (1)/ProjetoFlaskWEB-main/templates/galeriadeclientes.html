@@ -1,0 +1,747 @@
+<!DOCTYPE html>
+<html lang="pt-br" data-bs-theme="dark">
+<head>
+    <meta charset="UTF-8">
+    <title>iSolution PB - Galeria de Clientes</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.css">
+
+    <style>
+        :root {
+            --primary-red: #FF3B30;
+            --primary-black: #000000;
+            --primary-white: #FFFFFF;
+            --dark-gray: #1C1C1E;
+            --light-gray: #8E8E93;
+        }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+            background-color: var(--primary-black);
+            color: var(--primary-white);
+            min-height: 100vh;
+        }
+
+        /* Hero Header */
+        .clients-hero {
+            background: linear-gradient(rgba(0, 0, 0, 0.9), rgba(0, 0, 0, 0.95)),
+                        url('https://images.unsplash.com/photo-1552664730-d307ca884978?ixlib=rb-4.0.3&auto=format&fit=crop&w=1926&q=80');
+            background-size: cover;
+            background-position: center;
+            padding: 100px 0 60px;
+            border-bottom: 3px solid var(--primary-red);
+            position: relative;
+        }
+
+        .clients-hero::after {
+            content: '';
+            position: absolute;
+            bottom: -3px;
+            left: 0;
+            right: 0;
+            height: 3px;
+            background: linear-gradient(90deg, var(--primary-red) 0%, transparent 100%);
+        }
+
+        .page-title {
+            position: relative;
+            padding-bottom: 20px;
+            margin-bottom: 40px;
+        }
+
+        .page-title::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 100px;
+            height: 4px;
+            background-color: var(--primary-red);
+            border-radius: 2px;
+        }
+
+        /* Client Cards */
+        .client-card {
+            background-color: var(--dark-gray);
+            border: 2px solid #2C2C2E;
+            border-radius: 15px;
+            transition: all 0.3s ease;
+            height: 100%;
+            overflow: hidden;
+            position: relative;
+        }
+
+        .client-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 4px;
+            background-color: var(--primary-red);
+            transform: scaleX(0);
+            transition: transform 0.3s ease;
+        }
+
+        .client-card:hover::before {
+            transform: scaleX(1);
+        }
+
+        .client-card:hover {
+            transform: translateY(-10px);
+            border-color: var(--primary-red);
+            box-shadow: 0 15px 30px rgba(255, 59, 48, 0.15);
+        }
+
+        /* Client Photo */
+        .client-photo {
+            width: 120px;
+            height: 120px;
+            object-fit: cover;
+            border-radius: 50%;
+            margin: 0 auto;
+            border: 4px solid var(--dark-gray);
+            transition: all 0.3s ease;
+            position: relative;
+        }
+
+        .client-photo::after {
+            content: '';
+            position: absolute;
+            top: -4px;
+            left: -4px;
+            right: -4px;
+            bottom: -4px;
+            border-radius: 50%;
+            border: 2px solid var(--primary-red);
+            opacity: 0;
+            transition: opacity .3s ease;
+        }
+
+        .client-card:hover .client-photo {
+            transform: scale(1.05);
+        }
+
+        .client-card:hover .client-photo::after {
+            opacity: 1;
+        }
+
+        /* Testimonial Text */
+        .testimonial-text {
+            color: var(--light-gray);
+            font-style: italic;
+            position: relative;
+            padding: 20px;
+            background: rgba(255, 59, 48, 0.05);
+            border-radius: 10px;
+            margin-top: 15px;
+            border-left: 3px solid var(--primary-red);
+        }
+
+        .testimonial-text::before {
+            content: '"';
+            position: absolute;
+            top: 5px;
+            left: 10px;
+            font-size: 2.5rem;
+            color: var(--primary-red);
+            font-family: Georgia, serif;
+            opacity: 0.5;
+        }
+
+        .testimonial-text::after {
+            content: '"';
+            position: absolute;
+            bottom: -15px;
+            right: 15px;
+            font-size: 2.5rem;
+            color: var(--primary-red);
+            font-family: Georgia, serif;
+            opacity: 0.5;
+        }
+
+        /* Client Info */
+        .client-name {
+            color: var(--primary-white);
+            font-weight: 700;
+            margin: 15px 0 5px;
+            position: relative;
+            display: inline-block;
+        }
+
+        .client-name::after {
+            content: '';
+            position: absolute;
+            bottom: -5px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 40px;
+            height: 2px;
+            background-color: var(--primary-red);
+            border-radius: 1px;
+        }
+
+        .client-product {
+            color: var(--primary-red);
+            font-size: 0.9rem;
+            font-weight: 600;
+            margin-bottom: 10px;
+        }
+
+        /* Rating Stars */
+        .rating-stars {
+            color: var(--primary-red);
+            font-size: 1.1rem;
+            margin: 10px 0;
+        }
+
+        /* Date */
+        .review-date {
+            color: var(--light-gray);
+            font-size: 0.85rem;
+            font-style: italic;
+        }
+
+        /* Section Spacing */
+        .clients-section {
+            padding: 80px 0;
+        }
+
+        /* Stats Banner */
+        .stats-banner {
+            background-color: var(--dark-gray);
+            border-radius: 15px;
+            padding: 40px;
+            margin: 60px 0;
+            border: 2px solid var(--primary-red);
+            text-align: center;
+        }
+
+        .stat-number {
+            font-size: 2.5rem;
+            font-weight: bold;
+            color: var(--primary-red);
+            margin-bottom: 10px;
+            text-shadow: 0 0 20px rgba(255, 59, 48, 0.3);
+        }
+
+        /* Filter Buttons */
+        .filter-buttons {
+            display: flex;
+            justify-content: center;
+            flex-wrap: wrap;
+            gap: 10px;
+            margin-bottom: 40px;
+        }
+
+        .filter-btn {
+            background-color: transparent;
+            color: var(--light-gray);
+            border: 2px solid var(--light-gray);
+            border-radius: 25px;
+            padding: 8px 20px;
+            font-weight: 600;
+            transition: all 0.3s ease;
+        }
+
+        .filter-btn:hover,
+        .filter-btn.active {
+            background-color: var(--primary-red);
+            color: var(--primary-white);
+            border-color: var(--primary-red);
+            transform: translateY(-2px);
+        }
+
+        /* Responsive */
+        @media (max-width: 768px) {
+            .clients-hero {
+                padding: 80px 0 40px;
+            }
+
+            .clients-section {
+                padding: 40px 0;
+            }
+
+            .stats-banner {
+                padding: 30px 20px;
+            }
+        }
+
+        /* CTA Section */
+        .cta-section {
+            background: linear-gradient(rgba(0, 0, 0, 0.9), rgba(0, 0, 0, 0.9)),
+                        url('https://images.unsplash.com/photo-1551836026-d5c2c7e4e665?ixlib=rb-4.0.3&auto=format&fit=crop&w=1926&q=80');
+            background-size: cover;
+            background-position: center;
+            padding: 100px 0;
+            border-top: 3px solid var(--primary-red);
+            border-bottom: 3px solid var(--primary-red);
+        }
+
+        .cta-btn {
+            background-color: var(--primary-red);
+            color: var(--primary-white);
+            border: 2px solid var(--primary-red);
+            border-radius: 25px;
+            padding: 12px 30px;
+            font-weight: 600;
+            transition: all 0.3s ease;
+            display: inline-flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .cta-btn:hover {
+            background-color: transparent;
+            color: var(--primary-red);
+            transform: translateY(-3px);
+            box-shadow: 0 10px 20px rgba(255, 59, 48, 0.3);
+        }
+    </style>
+
+</head>
+<body>
+
+<!-- NAVBAR ORIGINAL (NÃO ALTERADA) -->
+<nav class="navbar navbar-expand-lg bg-body-tertiary">
+  <div class="container-fluid">
+    <a class="navbar-brand" href="#">iSolution PB</a>
+    <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent">
+      <span class="navbar-toggler-icon"></span>
+    </button>
+
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+      <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+        <li class="nav-item">
+          <a class="nav-link" href="/index"> Início </a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" href="/quemsomos">Nosso Time</a>
+        </li>
+        <li class="nav-item dropdown">
+          <a class="nav-link dropdown-toggle" href="#" data-bs-toggle="dropdown">Produtos</a>
+          <ul class="dropdown-menu">
+            <li><a class="dropdown-item" href="/iphone">iPhones</a></li>
+            <li><a class="dropdown-item" href="/ipads">iPads</a></li>
+            <li><a class="dropdown-item" href="/macbooks">MacBooks</a></li>
+            <li><a class="dropdown-item" href="/acessorios">Acessórios</a></li>
+          </ul>
+        </li>
+        <li class="nav-item">
+            <a class="nav-link active" href="/galeriadeclientes">Clientes</a>
+        </li>
+        <li class="nav-item">
+            <a class="nav-link" href="/tire_suas_duvidas">Assistente Virtual</a>
+        </li>
+      </ul>
+    </div>
+  </div>
+</nav>
+
+<!-- Hero Section -->
+<section class="clients-hero">
+    <div class="container">
+        <div class="row">
+            <div class="col-12 text-center">
+                <h1 class="display-4 fw-bold page-title">Nossos Clientes</h1>
+                <p class="lead" style="color: var(--light-gray); max-width: 700px; margin: 0 auto;">
+                    A satisfação dos nossos clientes é o nosso maior orgulho. Veja o que eles têm a dizer
+                    sobre a experiência iSolution PB.
+                </p>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- Stats Banner -->
+<section class="clients-section">
+    <div class="container">
+        <div class="stats-banner">
+            <div class="row">
+                <div class="col-md-3 col-6 mb-4 mb-md-0">
+                    <div class="stat-number">500+</div>
+                    <p style="color: var(--light-gray);">Clientes Satisfeitos</p>
+                </div>
+                <div class="col-md-3 col-6 mb-4 mb-md-0">
+                    <div class="stat-number">98%</div>
+                    <p style="color: var(--light-gray);">Avaliação Positiva</p>
+                </div>
+                <div class="col-md-3 col-6">
+                    <div class="stat-number">4.9</div>
+                    <p style="color: var(--light-gray);">Média de Estrelas</p>
+                </div>
+                <div class="col-md-3 col-6">
+                    <div class="stat-number">100%</div>
+                    <p style="color: var(--light-gray);">Indicação a Amigos</p>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- Filter Buttons -->
+<section style="padding: 0 0 40px 0;">
+    <div class="container">
+        <div class="filter-buttons">
+            <button class="filter-btn active" data-filter="all">Todos os Depoimentos</button>
+            <button class="filter-btn" data-filter="iphone">Clientes iPhone</button>
+            <button class="filter-btn" data-filter="macbook">Clientes MacBook</button>
+            <button class="filter-btn" data-filter="ipad">Clientes iPad</button>
+            <button class="filter-btn" data-filter="assistencia">Assistência Técnica</button>
+        </div>
+    </div>
+</section>
+
+<!-- Client Testimonials -->
+<section class="clients-section" style="padding-top: 0;">
+    <div class="container">
+        <div class="row row-cols-1 row-cols-md-2 row-cols-lg-3 g-4" id="testimonials-container">
+
+            <!-- Cliente 1 -->
+            <div class="col testimonial-item" data-category="iphone assistencia">
+                <div class="client-card p-4">
+                    <div class="text-center">
+                        <img src="#"
+                             class="client-photo"
+                             alt="Cliente Assistencia">
+                        <h5 class="client-name">Cliente Assistencia</h5>
+                        <p class="client-product">iPhone 15 Pro • Assistência Técnica</p>
+                        <div class="rating-stars">
+                            <i class="bi bi-star-fill"></i>
+                            <i class="bi bi-star-fill"></i>
+                            <i class="bi bi-star-fill"></i>
+                            <i class="bi bi-star-fill"></i>
+                            <i class="bi bi-star-fill"></i>
+                        </div>
+                        <p class="review-date">Compra realizada em: 15/03/2024</p>
+                    </div>
+
+                    <div class="testimonial-text">
+                        "Comprei meu iPhone 15 Pro na iSolution e fui surpreendida pela qualidade do atendimento.
+                        Quando precisei de assistência técnica para troca de bateria, o serviço foi rápido e profissional.
+                        Recomendo demais!"
+                    </div>
+                </div>
+            </div>
+
+            <!-- Cliente 2 -->
+            <div class="col testimonial-item" data-category="macbook">
+                <div class="client-card p-4">
+                    <div class="text-center">
+                        <img src="#"
+                             class="client-photo"
+                             alt="Cliente MacBook Pro">
+                        <h5 class="client-name">Cliente MacBook Pro</h5>
+                        <p class="client-product">MacBook Pro M2</p>
+                        <div class="rating-stars">
+                            <i class="bi bi-star-fill"></i>
+                            <i class="bi bi-star-fill"></i>
+                            <i class="bi bi-star-fill"></i>
+                            <i class="bi bi-star-fill"></i>
+                            <i class="bi bi-star-fill"></i>
+                        </div>
+                        <p class="review-date">Compra realizada em: 22/02/2024</p>
+                    </div>
+
+                    <div class="testimonial-text">
+                        "Como designer, preciso de performance. O MacBook que comprei na iSolution superou
+                        todas as expectativas. A consultoria que recebi foi fundamental para escolher o modelo ideal.
+                        Atendimento de primeira!"
+                    </div>
+                </div>
+            </div>
+
+            <!-- Cliente 3 -->
+            <div class="col testimonial-item" data-category="ipad">
+                <div class="client-card p-4">
+                    <div class="text-center">
+                        <img src="#"
+                             class="client-photo"
+                             alt="Cliente iPad Pro">
+                        <h5 class="client-name">Cliente iPad Pro</h5>
+                        <p class="client-product">iPad Pro 12.9"</p>
+                        <div class="rating-stars">
+                            <i class="bi bi-star-fill"></i>
+                            <i class="bi bi-star-fill"></i>
+                            <i class="bi bi-star-fill"></i>
+                            <i class="bi bi-star-fill"></i>
+                            <i class="bi bi-star-fill"></i>
+                        </div>
+                        <p class="review-date">Compra realizada em: 10/01/2024</p>
+                    </div>
+
+                    <div class="testimonial-text">
+                        "Comprei um iPad para minha filha que está na faculdade. A equipe da iSolution foi
+                        extremamente paciente e explicou todas as funcionalidades. A qualidade do produto é
+                        excelente e o pós-venda é impecável!"
+                    </div>
+                </div>
+            </div>
+
+            <!-- Cliente 4 -->
+            <div class="col testimonial-item" data-category="iphone">
+                <div class="client-card p-4">
+                    <div class="text-center">
+                        <img src="#"
+                             class="client-photo"
+                             alt="Cliente iPhone 14 PM">
+                        <h5 class="client-name">Cliente iPhone 14 PM</h5>
+                        <p class="client-product">iPhone 14 Pro Max</p>
+                        <div class="rating-stars">
+                            <i class="bi bi-star-fill"></i>
+                            <i class="bi bi-star-fill"></i>
+                            <i class="bi bi-star-fill"></i>
+                            <i class="bi bi-star-fill"></i>
+                            <i class="bi bi-star-fill"></i>
+                        </div>
+                        <p class="review-date">Compra realizada em: 05/12/2023</p>
+                    </div>
+
+                    <div class="testimonial-text">
+                        "Já comprei vários iPhones na iSolution e sempre fico impressionado com a qualidade.
+                        Os produtos são impecáveis e a garantia que oferecem dá uma segurança extra.
+                        Melhor loja de Apple em João Pessoa!"
+                    </div>
+                </div>
+            </div>
+
+            <!-- Cliente 5 -->
+            <div class="col testimonial-item" data-category="assistencia">
+                <div class="client-card p-4">
+                    <div class="text-center">
+                        <img src="#"
+                             class="client-photo"
+                             alt="Cliente Assistencia">
+                        <h5 class="client-name">Cliente Assistencia</h5>
+                        <p class="client-product">Assistência Técnica MacBook</p>
+                        <div class="rating-stars">
+                            <i class="bi bi-star-fill"></i>
+                            <i class="bi bi-star-fill"></i>
+                            <i class="bi bi-star-fill"></i>
+                            <i class="bi bi-star-fill"></i>
+                            <i class="bi bi-star-fill"></i>
+                        </div>
+                        <p class="review-date">Serviço realizado em: 18/11/2023</p>
+                    </div>
+
+                    <div class="testimonial-text">
+                        "Meu MacBook sofreu um acidente e a tela quebrou. Levei na iSolution e em 48 horas
+                        estava pronto, com tela original e funcionando perfeitamente. Preço justo e serviço
+                        rápido. Recomendo!"
+                    </div>
+                </div>
+            </div>
+
+            <!-- Cliente 6 -->
+            <div class="col testimonial-item" data-category="macbook ipad">
+                <div class="client-card p-4">
+                    <div class="text-center">
+                        <img src="#"
+                             class="client-photo"
+                             alt="Cliente MacBook">
+                        <h5 class="client-name">Cliente MacBook</h5>
+                        <p class="client-product">MacBook Air + iPad Mini</p>
+                        <div class="rating-stars">
+                            <i class="bi bi-star-fill"></i>
+                            <i class="bi bi-star-fill"></i>
+                            <i class="bi bi-star-fill"></i>
+                            <i class="bi bi-star-fill"></i>
+                            <i class="bi bi-star-fill"></i>
+                        </div>
+                        <p class="review-date">Compra realizada em: 30/10/2023</p>
+                    </div>
+
+                    <div class="testimonial-text">
+                        "Adquiri um MacBook Air e um iPad Mini para meu home office. A equipe me ajudou a
+                        montar o ecossistema perfeito para minhas necessidades. Produtos de alta qualidade
+                        e um atendimento que faz diferença!"
+                    </div>
+                </div>
+            </div>
+
+            <!-- Cliente 7 -->
+            <div class="col testimonial-item" data-category="iphone assistencia">
+                <div class="client-card p-4">
+                    <div class="text-center">
+                        <img src="#"
+                             class="client-photo"
+                             alt="Cliente bateria">
+                        <h5 class="client-name">Cliente bateria</h5>
+                        <p class="client-product">iPhone 13 • Troca de Bateria</p>
+                        <div class="rating-stars">
+                            <i class="bi bi-star-fill"></i>
+                            <i class="bi bi-star-fill"></i>
+                            <i class="bi bi-star-fill"></i>
+                            <i class="bi bi-star-fill"></i>
+                            <i class="bi bi-star-fill"></i>
+                        </div>
+                        <p class="review-date">Serviço realizado em: 15/09/2023</p>
+                    </div>
+
+                    <div class="testimonial-text">
+                        "Meu iPhone 13 estava com a bateria fraca. Fiz a troca na iSolution e meu celular
+                        voltou a durar o dia todo! Usam baterias originais e dão garantia. Profissionalismo
+                        total!"
+                    </div>
+                </div>
+            </div>
+
+            <!-- Cliente 8 -->
+            <div class="col testimonial-item" data-category="ipad">
+                <div class="client-card p-4">
+                    <div class="text-center">
+                        <img src="#"
+                             class="client-photo"
+                             alt="Ricardo Moura">
+                        <h5 class="client-name">Cliente iPad</h5>
+                        <p class="client-product">iPad Air 5ª Geração</p>
+                        <div class="rating-stars">
+                            <i class="bi bi-star-fill"></i>
+                            <i class="bi bi-star-fill"></i>
+                            <i class="bi bi-star-fill"></i>
+                            <i class="bi bi-star-fill"></i>
+                            <i class="bi bi-star-fill"></i>
+                        </div>
+                        <p class="review-date">Compra realizada em: 22/08/2023</p>
+                    </div>
+
+                    <div class="testimonial-text">
+                        "Comprei um iPad Air para apresentações profissionais. A qualidade da tela é incrível
+                        e o desempenho é excepcional. A iSolution tem preços competitivos e um atendimento
+                        humanizado que faz toda diferença."
+                    </div>
+                </div>
+            </div>
+
+            <!-- Cliente 9 -->
+            <div class="col testimonial-item" data-category="macbook assistencia">
+                <div class="client-card p-4">
+                    <div class="text-center">
+                        <img src="#"
+                             class="client-photo"
+                             alt="Cliente Limpeza">
+                        <h5 class="client-name">Cliente</h5>
+                        <p class="client-product">MacBook Pro • Limpeza Profissional</p>
+                        <div class="rating-stars">
+                            <i class="bi bi-star-fill"></i>
+                            <i class="bi bi-star-fill"></i>
+                            <i class="bi bi-star-fill"></i>
+                            <i class="bi bi-star-fill"></i>
+                            <i class="bi bi-star-fill"></i>
+                        </div>
+                        <p class="review-date">Serviço realizado em: 10/07/2023</p>
+                    </div>
+
+                    <div class="testimonial-text">
+                        "Levei meu MacBook Pro para uma limpeza profissional após 2 anos de uso. Ficou como novo!
+                        Retiraram toda poeira interna e fizeram uma higienização completa. Equipe muito competente
+                        e atenciosa."
+                    </div>
+                </div>
+            </div>
+
+        </div>
+    </div>
+</section>
+
+<!-- CTA Section -->
+<section class="cta-section">
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-8 mx-auto text-center">
+                <h2 class="display-5 fw-bold mb-4">Faça Parte Dessa História</h2>
+                <p class="lead mb-4" style="color: var(--light-gray); max-width: 700px; margin: 0 auto;">
+                    Experimente a qualidade iSolution PB e compartilhe sua experiência conosco.
+                    Sua satisfação é nossa maior recompensa.
+                </p>
+                <div class="d-flex flex-wrap justify-content-center gap-3">
+                    <a href="/iphone" class="cta-btn">
+                        <i class="bi bi-phone"></i> Comprar iPhone
+                    </a>
+                    <a href="/macbooks" class="cta-btn">
+                        <i class="bi bi-laptop"></i> Comprar MacBook
+                    </a>
+                    <a href="/tire_suas_duvidas" class="cta-btn">
+                        <i class="bi bi-chat-left-text"></i> Falar com Especialista
+                    </a>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/js/bootstrap.bundle.min.js"></script>
+
+<script>
+    // Filter functionality
+    document.addEventListener('DOMContentLoaded', function() {
+        const filterButtons = document.querySelectorAll('.filter-btn');
+        const testimonialItems = document.querySelectorAll('.testimonial-item');
+
+        // Initial animation for cards
+        testimonialItems.forEach((item, index) => {
+            item.style.opacity = '0';
+            item.style.transform = 'translateY(30px)';
+            item.style.transition = 'opacity 0.6s ease, transform 0.6s ease';
+
+            setTimeout(() => {
+                item.style.opacity = '1';
+                item.style.transform = 'translateY(0)';
+            }, 100 * index);
+        });
+
+        // Filter functionality
+        filterButtons.forEach(button => {
+            button.addEventListener('click', function() {
+                // Remove active class from all buttons
+                filterButtons.forEach(btn => btn.classList.remove('active'));
+
+                // Add active class to clicked button
+                this.classList.add('active');
+
+                const filterValue = this.getAttribute('data-filter');
+
+                // Filter items
+                testimonialItems.forEach(item => {
+                    const categories = item.getAttribute('data-category').split(' ');
+
+                    if (filterValue === 'all' || categories.includes(filterValue)) {
+                        item.style.display = 'block';
+
+                        // Trigger animation
+                        setTimeout(() => {
+                            item.style.opacity = '1';
+                            item.style.transform = 'translateY(0)';
+                        }, 50);
+                    } else {
+                        item.style.opacity = '0';
+                        item.style.transform = 'translateY(30px)';
+
+                        setTimeout(() => {
+                            item.style.display = 'none';
+                        }, 300);
+                    }
+                });
+            });
+        });
+
+        // Hover effect for cards
+        testimonialItems.forEach(item => {
+            const card = item.querySelector('.client-card');
+
+            card.addEventListener('mouseenter', function() {
+                const photo = this.querySelector('.client-photo');
+                photo.style.transform = 'scale(1.05)';
+            });
+
+            card.addEventListener('mouseleave', function() {
+                const photo = this.querySelector('.client-photo');
+                photo.style.transform = 'scale(1)';
+            });
+        });
+    });
+</script>
+
+</body>
+</html>
