@@ -1,0 +1,265 @@
+<!doctype html>
+<html lang="pt-BR" data-bs-theme="dark">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title> iSolution PB - Tire suas Dúvidas </title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
+
+    <style>
+
+
+      .chat-btn-floating {
+          position: fixed;
+          bottom: 20px;
+          right: 20px;
+          width: 60px;
+          height: 60px;
+          background-color: #0d6efd;
+          color: white;
+          border-radius: 50%;
+          border: none;
+          box-shadow: 0 4px 10px rgba(0,0,0,0.3);
+          z-index: 1050;
+          cursor: pointer;
+          display: flex;
+          align-items: center;
+          justify-content: center;
+          font-size: 24px;
+          transition: transform 0.3s;
+      }
+      .chat-btn-floating:hover {
+          transform: scale(1.1);
+          background-color: #0b5ed7;
+      }
+
+      .chat-window {
+          position: fixed;
+          bottom: 90px;
+          right: 20px;
+          width: 350px;
+          height: 500px;
+          background-color: #212529;
+          border: 1px solid #495057;
+          border-radius: 15px;
+          box-shadow: 0 5px 20px rgba(0,0,0,0.5);
+          z-index: 1050;
+          display: flex;
+          flex-direction: column;
+          overflow: hidden;
+          opacity: 0;
+          visibility: hidden;
+          transition: opacity 0.3s, visibility 0.3s;
+      }
+
+      .chat-window.show {
+          opacity: 1;
+          visibility: visible;
+      }
+
+      .chat-header {
+          background-color: #0d6efd;
+          color: white;
+          padding: 10px 15px;
+          display: flex;
+          justify-content: space-between;
+          align-items: center;
+          font-weight: bold;
+      }
+
+      .chat-body {
+          flex: 1;
+          padding: 15px;
+          overflow-y: auto;
+          display: flex;
+          flex-direction: column;
+          gap: 10px;
+          background-color: #2b3035;
+      }
+
+      .message {
+          max-width: 85%;
+          padding: 10px;
+          border-radius: 10px;
+          font-size: 0.9rem;
+          color: #fff;
+          white-space: pre-wrap;
+      }
+      .message.bot {
+          align-self: flex-start;
+          background-color: #495057;
+          border-bottom-left-radius: 0;
+      }
+      .message.user {
+          align-self: flex-end;
+          background-color: #0d6efd;
+          border-bottom-right-radius: 0;
+      }
+
+      .chat-footer {
+          padding: 10px;
+          border-top: 1px solid #495057;
+          background-color: #212529;
+          display: flex;
+          gap: 5px;
+      }
+
+      .chat-footer input {
+          background-color: #343a40;
+          border: 1px solid #495057;
+          color: white;
+      }
+      .chat-footer input::placeholder { color: #adb5bd; }
+
+      .chat-body::-webkit-scrollbar { width: 5px; }
+      .chat-body::-webkit-scrollbar-thumb { background: #495057; border-radius: 5px; }
+    </style>
+
+  </head>
+  <body>
+
+  <nav class="navbar navbar-expand-lg bg-body-tertiary">
+  <div class="container-fluid">
+    <a class="navbar-brand" href="#"> iSolution PB </a>
+    <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNavDropdown" aria-controls="navbarNavDropdown" aria-expanded="false" aria-label="Toggle navigation">
+      <span class="navbar-toggler-icon"></span>
+    </button>
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+      <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+        <li class="nav-item">
+          <a class="nav-link" href="/"> Ínicio </a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" href="/quemsomos">Quem Somos</a>
+        </li>
+        <li class="nav-item dropdown">
+          <a class="nav-link dropdown-toggle" href="/produtos" role="button" data-bs-toggle="dropdown" aria-expanded="false">Produtos</a>
+          <ul class="dropdown-menu">
+            <li><a class="dropdown-item" href="/iphone">iPhones</a></li>
+            <li><a class="dropdown-item" href="/ipads">iPads</a></li>
+            <li><a class="dropdown-item" href="/macbooks">MacBooks</a></li>
+            <li><a class="dropdown-item" href="/acessorios">Acessórios</a></li>
+          </ul>
+        </li>
+        <li class="nav-item">
+            <a class="nav-link active" aria-current="page" href="/tire_suas_duvidas">Tire suas Dúvidas</a>
+        </li>
+      </ul>
+    </div>
+  </div>
+  </nav>
+
+    <div class="container mt-5 text-center">
+        <h1>Central de Atendimento iSolution</h1>
+        <p class="lead">Tem alguma pergunta sobre nossos iPhones ou MacBooks?</p>
+        <p>Clique no ícone de chat abaixo para falar com nossa Inteligência Artificial agora mesmo.</p>
+
+        <div style="font-size: 50px; margin-top: 20px; animation: bounce 2s infinite;">
+            👇
+        </div>
+    </div>
+
+    <button class="chat-btn-floating" onclick="toggleChat()" id="chatButton">
+        💬
+    </button>
+
+    <div class="chat-window" id="chatWindow">
+        <div class="chat-header">
+            <span>Assistente iSolution</span>
+            <button type="button" class="btn-close btn-close-white" onclick="toggleChat()" aria-label="Close"></button>
+        </div>
+
+        <div class="chat-body" id="chatBody">
+            <div class="message bot">
+                Olá! Sou a IA da iSolution PB. Em que posso ajudar com seu iPhone ou MacBook hoje?
+            </div>
+        </div>
+
+        <div class="chat-footer">
+            <input type="text" id="userInput" class="form-control" placeholder="Digite sua dúvida..." onkeypress="handleKeyPress(event)">
+            <button class="btn btn-primary" onclick="sendMessage()">➤</button>
+        </div>
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
+
+    <script>
+        const chatWindow = document.getElementById('chatWindow');
+        const chatBody = document.getElementById('chatBody');
+        const userInput = document.getElementById('userInput');
+
+
+         window.onload = () => setTimeout(toggleChat, 500);
+
+        function toggleChat() {
+            chatWindow.classList.toggle('show');
+            if (chatWindow.classList.contains('show')) {
+                userInput.focus();
+            }
+        }
+
+        function handleKeyPress(e) {
+            if (e.key === 'Enter') sendMessage();
+        }
+
+        function appendMessage(text, sender, isLoading = false) {
+            const msgDiv = document.createElement('div');
+            msgDiv.classList.add('message', sender);
+            msgDiv.innerText = text;
+
+            const id = 'msg-' + Date.now();
+            if(isLoading) {
+                msgDiv.id = id;
+                msgDiv.style.fontStyle = 'italic';
+                msgDiv.style.opacity = '0.7';
+            }
+
+            chatBody.appendChild(msgDiv);
+            chatBody.scrollTop = chatBody.scrollHeight;
+            return id;
+        }
+
+        async function sendMessage() {
+            const text = userInput.value.trim();
+            if (!text) return;
+
+            appendMessage(text, 'user');
+            userInput.value = '';
+
+            const loadingId = appendMessage('Digitando...', 'bot', true);
+
+            try {
+
+                const response = await fetch('/chat', {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({ message: text })
+                });
+
+                if (!response.ok) throw new Error('Erro na resposta');
+
+                const data = await response.json();
+
+                const loadingElement = document.getElementById(loadingId);
+                if(loadingElement) loadingElement.remove();
+
+                appendMessage(data.reply, 'bot');
+
+            } catch (error) {
+                console.error('Erro:', error);
+                const loadingElement = document.getElementById(loadingId);
+                if(loadingElement) loadingElement.remove();
+                appendMessage("Erro de conexão. Verifique se o app.py está rodando.", 'bot');
+            }
+        }
+    </script>
+
+    <style>
+    @keyframes bounce {
+      0%, 20%, 50%, 80%, 100% {transform: translateY(0);}
+      40% {transform: translateY(-10px);}
+      60% {transform: translateY(-5px);}
+    }
+    </style>
+  </body>
+</html>

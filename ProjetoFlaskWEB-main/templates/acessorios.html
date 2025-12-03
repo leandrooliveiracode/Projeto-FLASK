@@ -1,0 +1,905 @@
+<!DOCTYPE html>
+<html lang="pt-br" data-bs-theme="dark">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>iSolution PB - Acessórios Apple</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-sRIl4kxILFvY47J16cr9ZwB07vP4J8+LH7qKQnuqkuIAvNWLzeN8tE5YBujZqJLB" crossorigin="anonymous">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.css">
+
+    <style>
+        :root {
+            --primary-red: #FF3B30;
+            --primary-black: #000000;
+            --primary-white: #FFFFFF;
+            --dark-gray: #1C1C1E;
+            --light-gray: #8E8E93;
+        }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+            background-color: var(--primary-black);
+            color: var(--primary-white);
+            min-height: 100vh;
+        }
+
+        /* Hero Section */
+        .acessorios-hero {
+            background: linear-gradient(rgba(0, 0, 0, 0.9), rgba(0, 0, 0, 0.95)),
+                        url('https://images.unsplash.com/photo-1546054451-aa224d1e59b3?ixlib=rb-4.0.3&auto=format&fit=crop&w=1926&q=80');
+            background-size: cover;
+            background-position: center;
+            padding: 100px 0 60px;
+            border-bottom: 3px solid var(--primary-red);
+            position: relative;
+            text-align: center;
+        }
+
+        .acessorios-hero::after {
+            content: '';
+            position: absolute;
+            bottom: -3px;
+            left: 0;
+            right: 0;
+            height: 3px;
+            background: linear-gradient(90deg, var(--primary-red) 0%, transparent 100%);
+        }
+
+        .badge-red {
+            background-color: var(--primary-red);
+            color: var(--primary-white);
+            padding: 8px 20px;
+            border-radius: 25px;
+            font-size: 0.9rem;
+            font-weight: 600;
+            display: inline-block;
+            margin-bottom: 25px;
+            border: 2px solid rgba(255, 59, 48, 0.3);
+        }
+
+        .page-title {
+            position: relative;
+            padding-bottom: 20px;
+            margin-bottom: 40px;
+        }
+
+        .page-title::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 100px;
+            height: 4px;
+            background-color: var(--primary-red);
+            border-radius: 2px;
+        }
+
+        /* Products Container */
+        .produtos-container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+
+        /* Grid de Produtos */
+        .grid-produtos {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 30px;
+            margin: 50px 0;
+        }
+
+        /* Cards de Produto */
+        .card-produto {
+            background-color: var(--dark-gray);
+            border: 2px solid #2C2C2E;
+            border-radius: 15px;
+            padding: 25px;
+            text-align: left;
+            transition: all 0.3s ease;
+            position: relative;
+            overflow: hidden;
+            height: 100%;
+        }
+
+        .card-produto::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 4px;
+            background-color: var(--primary-red);
+            transform: scaleX(0);
+            transition: transform 0.3s ease;
+        }
+
+        .card-produto:hover::before {
+            transform: scaleX(1);
+        }
+
+        .card-produto:hover {
+            transform: translateY(-10px);
+            border-color: var(--primary-red);
+            box-shadow: 0 15px 30px rgba(255, 59, 48, 0.15);
+        }
+
+        /* Imagem do Produto */
+        .imagem-produto {
+            width: 100%;
+            height: 220px;
+            margin-bottom: 20px;
+            border-radius: 10px;
+            background-color: #222222;
+            overflow: hidden;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .img-acessorio {
+            width: 80%;
+            height: 80%;
+            object-fit: contain;
+            transition: transform 0.5s;
+        }
+
+        .card-produto:hover .img-acessorio {
+            transform: scale(1.05);
+        }
+
+        /* Informações do Produto */
+        .info-produto h2 {
+            font-size: 1.6em;
+            font-weight: 600;
+            color: var(--primary-white);
+            margin: 0 0 10px 0;
+        }
+
+        .descricao {
+            color: var(--light-gray);
+            font-size: 0.95em;
+            margin-bottom: 15px;
+            min-height: 60px;
+        }
+
+        .especificacoes {
+            color: var(--light-gray);
+            font-size: 0.85em;
+            margin-bottom: 15px;
+            list-style: none;
+            padding-left: 0;
+        }
+
+        .especificacoes li {
+            margin-bottom: 4px;
+            padding-left: 20px;
+            position: relative;
+        }
+
+        .especificacoes li:before {
+            content: "•";
+            position: absolute;
+            left: 0;
+            color: var(--primary-red);
+        }
+
+        .preco {
+            font-size: 1.8em;
+            font-weight: 700;
+            color: var(--primary-red);
+            margin-bottom: 10px;
+            text-shadow: 0 0 20px rgba(255, 59, 48, 0.3);
+        }
+
+        .parcelamento {
+            color: var(--light-gray);
+            font-size: 0.85em;
+            margin-bottom: 20px;
+        }
+
+        /* Botões */
+        .btn-comprar {
+            display: block;
+            width: 100%;
+            padding: 12px 0;
+            background-color: var(--primary-red);
+            color: var(--primary-white);
+            text-decoration: none;
+            font-weight: 600;
+            border-radius: 8px;
+            transition: all 0.3s ease;
+            border: 2px solid var(--primary-red);
+            text-align: center;
+            font-size: 0.95em;
+        }
+
+        .btn-comprar:hover {
+            background-color: transparent;
+            color: var(--primary-red);
+            transform: translateY(-2px);
+            box-shadow: 0 10px 20px rgba(255, 59, 48, 0.3);
+        }
+
+        /* Tags */
+        .tag-lancamento {
+            position: absolute;
+            top: 20px;
+            right: 20px;
+            background-color: var(--primary-red);
+            color: var(--primary-white);
+            padding: 6px 15px;
+            font-size: 0.8em;
+            font-weight: 700;
+            border-radius: 50px;
+            z-index: 10;
+        }
+
+        .tag-mais-vendido {
+            position: absolute;
+            top: 20px;
+            right: 20px;
+            background-color: #25D366;
+            color: var(--primary-white);
+            padding: 6px 15px;
+            font-size: 0.8em;
+            font-weight: 700;
+            border-radius: 50px;
+            z-index: 10;
+        }
+
+        .tag-essencial {
+            position: absolute;
+            top: 20px;
+            right: 20px;
+            background-color: #007AFF;
+            color: var(--primary-white);
+            padding: 6px 15px;
+            font-size: 0.8em;
+            font-weight: 700;
+            border-radius: 50px;
+            z-index: 10;
+        }
+
+        /* Categorias */
+        .categorias-section {
+            margin: 40px 0;
+        }
+
+        .categorias-botoes {
+            display: flex;
+            justify-content: center;
+            flex-wrap: wrap;
+            gap: 15px;
+            margin-bottom: 30px;
+        }
+
+        .categoria-btn {
+            background-color: transparent;
+            color: var(--light-gray);
+            border: 2px solid var(--light-gray);
+            border-radius: 25px;
+            padding: 8px 20px;
+            font-weight: 600;
+            font-size: 0.9em;
+            transition: all 0.3s ease;
+        }
+
+        .categoria-btn:hover,
+        .categoria-btn.active {
+            background-color: var(--primary-red);
+            color: var(--primary-white);
+            border-color: var(--primary-red);
+            transform: translateY(-2px);
+        }
+
+        /* Bundle Section */
+        .bundle-section {
+            background-color: var(--dark-gray);
+            border-radius: 15px;
+            padding: 40px;
+            margin: 60px 0;
+            border: 2px solid var(--primary-red);
+            text-align: center;
+        }
+
+        .bundle-offer {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 30px;
+            margin-top: 30px;
+            flex-wrap: wrap;
+        }
+
+        .bundle-item {
+            text-align: center;
+            width: 120px;
+        }
+
+        .bundle-plus {
+            font-size: 2rem;
+            color: var(--primary-red);
+            font-weight: bold;
+        }
+
+        /* Features Section */
+        .features-section {
+            background-color: var(--dark-gray);
+            border-radius: 15px;
+            padding: 50px;
+            margin: 60px 0;
+            border: 2px solid #2C2C2E;
+        }
+
+        .feature-item {
+            text-align: center;
+            padding: 20px;
+        }
+
+        .feature-icon {
+            width: 50px;
+            height: 50px;
+            background-color: rgba(255, 59, 48, 0.1);
+            border: 2px solid var(--primary-red);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin: 0 auto 15px;
+            font-size: 1.2rem;
+            color: var(--primary-red);
+        }
+
+        /* Responsividade */
+        @media (max-width: 768px) {
+            .grid-produtos {
+                grid-template-columns: 1fr;
+            }
+
+            .acessorios-hero {
+                padding: 80px 0 40px;
+            }
+
+            .features-section {
+                padding: 30px;
+            }
+
+            .imagem-produto {
+                height: 200px;
+            }
+
+            .bundle-offer {
+                flex-direction: column;
+                gap: 20px;
+            }
+
+            .categorias-botoes {
+                gap: 10px;
+            }
+
+            .categoria-btn {
+                padding: 6px 15px;
+                font-size: 0.8em;
+            }
+        }
+
+        /* CTA Section */
+        .cta-section {
+            text-align: center;
+            padding: 60px 0;
+            margin: 50px 0;
+            background-color: var(--dark-gray);
+            border-radius: 15px;
+            border: 2px solid var(--primary-red);
+        }
+
+        /* Loading Animation */
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .fade-in-up {
+            animation: fadeInUp 0.6s ease-out forwards;
+        }
+
+        /* Section Spacing */
+        section {
+            padding: 80px 0;
+        }
+
+        .section-title {
+            position: relative;
+            padding-bottom: 20px;
+            margin-bottom: 40px;
+        }
+
+        .section-title::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 80px;
+            height: 4px;
+            background-color: var(--primary-red);
+            border-radius: 2px;
+        }
+    </style>
+</head>
+<body>
+    <!-- NAVBAR ORIGINAL (NÃO ALTERADA) -->
+    <nav class="navbar navbar-expand-lg bg-body-tertiary">
+      <div class="container-fluid">
+        <a class="navbar-brand" href="#">iSolution PB</a>
+        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+          <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarSupportedContent">
+          <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+            <li class="nav-item">
+              <a class="nav-link" href="/index">Ínicio</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" href="/quemsomos">Nosso Time</a>
+            </li>
+            <li class="nav-item dropdown">
+              <a class="nav-link dropdown-toggle active" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">Produtos</a>
+              <ul class="dropdown-menu">
+                <li><a class="dropdown-item" href="/iphone">iPhones</a></li>
+                <li><a class="dropdown-item" href="/ipads">iPads</a></li>
+                <li><a class="dropdown-item" href="/macbooks">MacBooks</a></li>
+                <li><a class="dropdown-item active" href="/acessorios">Acessórios</a></li>
+              </ul>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" href="/galeriadeclientes">Clientes</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" href="/tire_suas_duvidas">Assistente Virtual</a>
+            </li>
+          </ul>
+        </div>
+      </div>
+    </nav>
+
+    <!-- Hero Section -->
+    <section class="acessorios-hero">
+        <div class="container">
+            <div class="row">
+                <div class="col-12 text-center">
+                    <span class="badge-red">
+                        <i class="bi bi-headphones me-2"></i>Acessórios Oficiais Apple
+                    </span>
+                    <h1 class="display-4 fw-bold page-title">Complete sua <span style="color: var(--primary-red)">Experiência</span> Apple</h1>
+                    <p class="lead" style="color: var(--light-gray); max-width: 700px; margin: 0 auto;">
+                        Acessórios originais Apple para maximizar o potencial dos seus dispositivos.
+                        Qualidade garantida e compatibilidade perfeita.
+                    </p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Categorias -->
+    <section class="categorias-section">
+        <div class="container">
+            <div class="categorias-botoes">
+                <button class="categoria-btn active" data-categoria="todos">Todos os Acessórios</button>
+                <button class="categoria-btn" data-categoria="audio">Áudio</button>
+                <button class="categoria-btn" data-categoria="localizacao">Localização</button>
+                <button class="categoria-btn" data-categoria="carregamento">Carregamento</button>
+                <button class="categoria-btn" data-categoria="essenciais">Essenciais</button>
+            </div>
+        </div>
+    </section>
+
+    <!-- Products Grid -->
+    <section>
+        <div class="container produtos-container">
+            <div class="grid-produtos">
+                <!-- AirPods -->
+                <div class="card-produto fade-in-up" data-categoria="audio">
+                    <div class="tag-mais-vendido">Mais Vendido</div>
+                    <div class="imagem-produto">
+                         <img src="{{ url_for('static', filename='airpods/AirPods_3.jpeg') }}" alt="AirPod">
+
+
+                    </div>
+                    <div class="info-produto">
+                        <h2>AirPods (3ª Geração)</h2>
+                        <p class="descricao">Som espacial personalizado e resistência à água.</p>
+
+                        <ul class="especificacoes">
+                            <li>Som espacial personalizado</li>
+                            <li>Resistência à água e suor</li>
+                            <li>Até 30 horas de bateria</li>
+                            <li>Carregamento MagSafe</li>
+                            <li>Conexão instantânea Apple</li>
+                        </ul>
+
+                        <div class="preco">R$ 1.299,00</div>
+                        <p class="parcelamento">6x de R$ 216,50 sem juros</p>
+
+                        <a href="#" class="btn-comprar">
+                            <i class="bi bi-cart3 me-2"></i> Comprar Agora
+                        </a>
+                    </div>
+                </div>
+
+                <!-- AirPods Max -->
+                <div class="card-produto fade-in-up" data-categoria="audio">
+                    <div class="tag-lancamento">Premium</div>
+                    <div class="imagem-produto">
+                        <img src="{{ url_for('static', filename='airpods/AirPods_Max.jpeg') }}""
+                             alt="AirPods Max"
+                             class="img-acessorio">
+                    </div>
+                    <div class="info-produto">
+                        <h2>AirPods Max</h2>
+                        <p class="descricao">Fones over-ear com cancelamento ativo de ruído.</p>
+
+                        <ul class="especificacoes">
+                            <li>Cancelamento ativo de ruído</li>
+                            <li>Áudio de alta fidelidade</li>
+                            <li>Até 20 horas de bateria</li>
+                            <li>Design premium em alumínio</li>
+                            <li>Som espacial dinâmico</li>
+                        </ul>
+
+                        <div class="preco">R$ 4.499,00</div>
+                        <p class="parcelamento">12x de R$ 374,92 sem juros</p>
+
+                        <a href="#" class="btn-comprar">
+                            <i class="bi bi-cart3 me-2"></i> Comprar Agora
+                        </a>
+                    </div>
+                </div>
+
+                <!-- AirTag -->
+                <div class="card-produto fade-in-up" data-categoria="localizacao">
+                    <div class="tag-essencial">Essencial</div>
+                    <div class="imagem-produto">
+                        <img src= "{{ url_for('static', filename='airpods/airtag.jpg') }}"
+                             alt="AirTag"
+                             class="img-acessorio">
+                    </div>
+                    <div class="info-produto">
+                        <h2>AirTag</h2>
+                        <p class="descricao">Localizador pessoal da Apple para seus itens importantes.</p>
+
+                        <ul class="especificacoes">
+                            <li>Localização precisa via Find My</li>
+                            <li>Bateria substituível (1 ano)</li>
+                            <li>Resistente a água e poeira</li>
+                            <li>Chip U1 para Precisão</li>
+                            <li>Som para localização fácil</li>
+                        </ul>
+
+                        <div class="preco">R$ 299,00</div>
+                        <p class="parcelamento">3x de R$ 99,67 sem juros</p>
+
+                        <a href="#" class="btn-comprar">
+                            <i class="bi bi-cart3 me-2"></i> Comprar Agora
+                        </a>
+                    </div>
+                </div>
+
+                <!-- Cabo USB-C -->
+                <div class="card-produto fade-in-up" data-categoria="carregamento essenciais">
+                    <div class="tag-mais-vendido">Obrigatório</div>
+                    <div class="imagem-produto">
+                        <img src="{{ url_for('static', filename='airpods/usbc.jpg') }}"
+                             alt="Cabo USB-C"
+                             class="img-acessorio">
+                    </div>
+                    <div class="info-produto">
+                        <h2>Cabo USB-C (2m)</h2>
+                        <p class="descricao">Cabo de carregamento e sincronização oficial Apple.</p>
+
+                        <ul class="especificacoes">
+                            <li>Comprimento: 2 metros</li>
+                            <li>Conector USB-C para USB-C</li>
+                            <li>Carregamento rápido</li>
+                            <li>Sincronização de dados</li>
+                            <li>Compatível com MagSafe</li>
+                        </ul>
+
+                        <div class="preco">R$ 199,00</div>
+                        <p class="parcelamento">2x de R$ 99,50 sem juros</p>
+
+                        <a href="#" class="btn-comprar">
+                            <i class="bi bi-cart3 me-2"></i> Comprar Agora
+                        </a>
+                    </div>
+                </div>
+
+                <!-- Fonte Turbo -->
+                <div class="card-produto fade-in-up" data-categoria="carregamento">
+                    <div class="imagem-produto">
+                        <img src= "{{ url_for('static', filename='airpods/fonte20w.jpg') }}"
+                             alt="Fonte Turbo 20W"
+                             class="img-acessorio">
+                    </div>
+                    <div class="info-produto">
+                        <h2>Fonte Turbo 20W USB-C</h2>
+                        <p class="descricao">Carregador rápido compacto para iPhone e iPad.</p>
+
+                        <ul class="especificacoes">
+                            <li>Potência: 20W</li>
+                            <li>Carregamento rápido iPhone</li>
+                            <li>Compacto e portátil</li>
+                            <li>Conector USB-C</li>
+                            <li>Compatível com MagSafe</li>
+                        </ul>
+
+                        <div class="preco">R$ 249,00</div>
+                        <p class="parcelamento">3x de R$ 83,00 sem juros</p>
+
+                        <a href="#" class="btn-comprar">
+                            <i class="bi bi-cart3 me-2"></i> Comprar Agora
+                        </a>
+                    </div>
+                </div>
+
+                <!-- AirPods Pro -->
+                <div class="card-produto fade-in-up" data-categoria="audio">
+                    <div class="tag-lancamento">Novo</div>
+                    <div class="imagem-produto">
+                        <img src="{{ url_for('static', filename='airpods/airpod2.jpg') }}"
+                             alt="AirPods Pro"
+                             class="img-acessorio">
+                    </div>
+                    <div class="info-produto">
+                        <h2>AirPods Pro (2ª Geração)</h2>
+                        <p class="descricao">Cancelamento ativo de ruído e áudio adaptativo.</p>
+
+                        <ul class="especificacoes">
+                            <li>Cancelamento ativo de ruído</li>
+                            <li>Áudio adaptativo</li>
+                            <li>Carregamento com MagSafe</li>
+                            <li>Resistência IPX4</li>
+                            <li>Até 30 horas de bateria</li>
+                        </ul>
+
+                        <div class="preco">R$ 1.899,00</div>
+                        <p class="parcelamento">8x de R$ 237,38 sem juros</p>
+
+                        <a href="#" class="btn-comprar">
+                            <i class="bi bi-cart3 me-2"></i> Comprar Agora
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Bundle Section -->
+    <section class="bundle-section">
+        <div class="container">
+            <div class="row">
+                <div class="col-12 text-center">
+                    <h2 class="display-5 fw-bold mb-4">Combo <span style="color: var(--primary-red)">Especial</span></h2>
+                    <p class="lead mb-4" style="color: var(--light-gray); max-width: 700px; margin: 0 auto;">
+                        Monte seu kit perfeito e economize!
+                    </p>
+
+                    <div class="bundle-offer">
+                        <div class="bundle-item">
+                            <div style="width: 80px; height: 80px; margin: 0 auto 10px; background-color: #222; border-radius: 10px; display: flex; align-items: center; justify-content: center;">
+                                <i class="bi bi-headphones fs-4" style="color: var(--primary-red);"></i>
+                            </div>
+                            <p class="mb-0 small">AirPods</p>
+                        </div>
+
+                        <div class="bundle-plus">+</div>
+
+                        <div class="bundle-item">
+                            <div style="width: 80px; height: 80px; margin: 0 auto 10px; background-color: #222; border-radius: 10px; display: flex; align-items: center; justify-content: center;">
+                                <i class="bi bi-lightning-charge fs-4" style="color: var(--primary-red);"></i>
+                            </div>
+                            <p class="mb-0 small">Fonte Turbo</p>
+                        </div>
+
+                        <div class="bundle-plus">+</div>
+
+                        <div class="bundle-item">
+                            <div style="width: 80px; height: 80px; margin: 0 auto 10px; background-color: #222; border-radius: 10px; display: flex; align-items: center; justify-content: center;">
+                                <i class="bi bi-usb-c fs-4" style="color: var(--primary-red);"></i>
+                            </div>
+                            <p class="mb-0 small">Cabo USB-C</p>
+                        </div>
+                    </div>
+
+                    <div class="mt-4">
+                        <h3 class="fw-bold" style="color: var(--primary-red);">R$ 1.599,00</h3>
+                        <p class="text-gray">Economize R$ 148,00</p>
+                        <a href="#" class="btn" style="background-color: var(--primary-red); color: white; padding: 12px 30px; border-radius: 25px; font-weight: 600;">
+                            <i class="bi bi-gift me-2"></i> Comprar Combo
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Features Section -->
+    <section class="features-section">
+        <div class="container">
+            <div class="row mb-5">
+                <div class="col-12 text-center">
+                    <h2 class="display-5 fw-bold section-title">Vantagens dos <span style="color: var(--primary-red)">Acessórios Originais</span></h2>
+                </div>
+            </div>
+
+            <div class="row g-4">
+                <div class="col-md-4">
+                    <div class="feature-item">
+                        <div class="feature-icon">
+                            <i class="bi bi-shield-check"></i>
+                        </div>
+                        <h5 class="fw-bold">Garantia Apple</h5>
+                        <p class="text-gray small">1 ano de garantia oficial Apple</p>
+                    </div>
+                </div>
+
+                <div class="col-md-4">
+                    <div class="feature-item">
+                        <div class="feature-icon">
+                            <i class="bi bi-lightning"></i>
+                        </div>
+                        <h5 class="fw-bold">Compatibilidade Perfeita</h5>
+                        <p class="text-gray small">Funcionamento otimizado com seus dispositivos</p>
+                    </div>
+                </div>
+
+                <div class="col-md-4">
+                    <div class="feature-item">
+                        <div class="feature-icon">
+                            <i class="bi bi-award"></i>
+                        </div>
+                        <h5 class="fw-bold">Qualidade Superior</h5>
+                        <p class="text-gray small">Materiais premium e durabilidade comprovada</p>
+                    </div>
+                </div>
+
+                <div class="col-md-4">
+                    <div class="feature-item">
+                        <div class="feature-icon">
+                            <i class="bi bi-truck"></i>
+                        </div>
+                        <h5 class="fw-bold">Entrega Rápida</h5>
+                        <p class="text-gray small">Em até 2h na Grande João Pessoa</p>
+                    </div>
+                </div>
+
+                <div class="col-md-4">
+                    <div class="feature-item">
+                        <div class="feature-icon">
+                            <i class="bi bi-arrow-repeat"></i>
+                        </div>
+                        <h5 class="fw-bold">Troca Facilitada</h5>
+                        <p class="text-gray small">Troca imediata em caso de defeito</p>
+                    </div>
+                </div>
+
+                <div class="col-md-4">
+                    <div class="feature-item">
+                        <div class="feature-icon">
+                            <i class="bi bi-credit-card"></i>
+                        </div>
+                        <h5 class="fw-bold">Parcele em até 18x</h5>
+                        <p class="text-gray small">Sem juros no cartão</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- CTA Section -->
+    <section class="cta-section">
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-8 mx-auto text-center">
+                    <h2 class="display-5 fw-bold mb-4">Ainda com Dúvidas?</h2>
+                    <p class="lead mb-4" style="color: var(--light-gray); max-width: 700px; margin: 0 auto;">
+                        Nossa equipe especializada pode te ajudar a escolher os acessórios perfeitos
+                        para complementar seus dispositivos Apple.
+                    </p>
+                    <div class="d-flex flex-wrap justify-content-center gap-3">
+                        <a href="https://wa.me/5583987007458" class="btn btn-lg" style="background-color: #25D366; color: white;">
+                            <i class="bi bi-whatsapp me-2"></i> Falar no WhatsApp
+                        </a>
+                        <a href="/iphone" class="btn btn-lg btn-outline-light">
+                            <i class="bi bi-phone me-2"></i> Ver iPhones
+                        </a>
+                        <a href="/galeriadeclientes" class="btn btn-lg" style="background-color: var(--primary-red); color: white;">
+                            <i class="bi bi-chat-left-text me-2"></i> Ver Depoimentos
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/js/bootstrap.bundle.min.js" integrity="sha384-FKyoEForCGlyvwx9Hj09JcYn3nv7wiPVlz7YYwJrWVcXK/BmnVDxM+D2scQbITxI" crossorigin="anonymous"></script>
+
+    <script>
+        // Animação para os cards
+        document.addEventListener('DOMContentLoaded', function() {
+            const cards = document.querySelectorAll('.card-produto');
+
+            cards.forEach((card, index) => {
+                card.style.opacity = '0';
+                card.style.transform = 'translateY(30px)';
+                card.style.transition = 'opacity 0.6s ease, transform 0.6s ease';
+
+                setTimeout(() => {
+                    card.style.opacity = '1';
+                    card.style.transform = 'translateY(0)';
+                }, 100 * index);
+            });
+
+            // Filtro por categoria
+            const categoriaBtns = document.querySelectorAll('.categoria-btn');
+            const produtos = document.querySelectorAll('.card-produto');
+
+            categoriaBtns.forEach(btn => {
+                btn.addEventListener('click', function() {
+                    // Remove active class de todos os botões
+                    categoriaBtns.forEach(b => b.classList.remove('active'));
+
+                    // Adiciona active class no botão clicado
+                    this.classList.add('active');
+
+                    const categoria = this.getAttribute('data-categoria');
+
+                    // Filtra os produtos
+                    produtos.forEach(produto => {
+                        const categoriasProduto = produto.getAttribute('data-categoria').split(' ');
+
+                        if (categoria === 'todos' || categoriasProduto.includes(categoria)) {
+                            produto.style.display = 'block';
+                            setTimeout(() => {
+                                produto.style.opacity = '1';
+                                produto.style.transform = 'translateY(0)';
+                            }, 50);
+                        } else {
+                            produto.style.opacity = '0';
+                            produto.style.transform = 'translateY(30px)';
+                            setTimeout(() => {
+                                produto.style.display = 'none';
+                            }, 300);
+                        }
+                    });
+                });
+            });
+
+            // Smooth scroll para âncoras
+            document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+                anchor.addEventListener('click', function (e) {
+                    e.preventDefault();
+                    const targetId = this.getAttribute('href');
+                    if (targetId !== '#') {
+                        const targetElement = document.querySelector(targetId);
+                        if (targetElement) {
+                            window.scrollTo({
+                                top: targetElement.offsetTop - 80,
+                                behavior: 'smooth'
+                            });
+                        }
+                    }
+                });
+            });
+        });
+    </script>
+</body>
+</html>

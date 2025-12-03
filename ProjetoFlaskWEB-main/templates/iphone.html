@@ -1,0 +1,730 @@
+<!DOCTYPE html>
+<html lang="pt-br" data-bs-theme="dark">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>iSolution PB - iPhones</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-sRIl4kxILFvY47J16cr9ZwB07vP4J8+LH7qKQnuqkuIAvNWLzeN8tE5YBujZqJLB" crossorigin="anonymous">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.css">
+
+    <style>
+        :root {
+            --primary-red: #FF3B30;
+            --primary-black: #000000;
+            --primary-white: #FFFFFF;
+            --dark-gray: #1C1C1E;
+            --light-gray: #8E8E93;
+        }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+            background-color: var(--primary-black);
+            color: var(--primary-white);
+            min-height: 100vh;
+        }
+
+        /* Hero Section */
+        .iphone-hero {
+            background: linear-gradient(rgba(0, 0, 0, 0.9), rgba(0, 0, 0, 0.95)),
+                        url('https://images.unsplash.com/photo-1511707171634-5f897ff02aa9?ixlib=rb-4.0.3&auto=format&fit=crop&w=1926&q=80');
+            background-size: cover;
+            background-position: center;
+            padding: 100px 0 60px;
+            border-bottom: 3px solid var(--primary-red);
+            position: relative;
+            text-align: center;
+        }
+
+        .iphone-hero::after {
+            content: '';
+            position: absolute;
+            bottom: -3px;
+            left: 0;
+            right: 0;
+            height: 3px;
+            background: linear-gradient(90deg, var(--primary-red) 0%, transparent 100%);
+        }
+
+        .badge-red {
+            background-color: var(--primary-red);
+            color: var(--primary-white);
+            padding: 8px 20px;
+            border-radius: 25px;
+            font-size: 0.9rem;
+            font-weight: 600;
+            display: inline-block;
+            margin-bottom: 25px;
+            border: 2px solid rgba(255, 59, 48, 0.3);
+        }
+
+        .page-title {
+            position: relative;
+            padding-bottom: 20px;
+            margin-bottom: 40px;
+        }
+
+        .page-title::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 100px;
+            height: 4px;
+            background-color: var(--primary-red);
+            border-radius: 2px;
+        }
+
+        /* Products Container */
+        .produtos-container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+
+        /* Grid de Produtos */
+        .grid-produtos {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+            gap: 30px;
+            margin: 50px 0;
+        }
+
+        /* Cards de Produto */
+        .card-produto {
+            background-color: var(--dark-gray);
+            border: 2px solid #2C2C2E;
+            border-radius: 15px;
+            padding: 25px;
+            text-align: left;
+            transition: all 0.3s ease;
+            position: relative;
+            overflow: hidden;
+            height: 100%;
+        }
+
+        .card-produto::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 4px;
+            background-color: var(--primary-red);
+            transform: scaleX(0);
+            transition: transform 0.3s ease;
+        }
+
+        .card-produto:hover::before {
+            transform: scaleX(1);
+        }
+
+        .card-produto:hover {
+            transform: translateY(-10px);
+            border-color: var(--primary-red);
+            box-shadow: 0 15px 30px rgba(255, 59, 48, 0.15);
+        }
+
+        /* Imagem do Produto */
+        .imagem-produto {
+            width: 100%;
+            height: 280px;
+            margin-bottom: 20px;
+            border-radius: 10px;
+            background-color: #222222;
+            overflow: hidden;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .img-iphone {
+            width: 100%;
+            height: 100%;
+            object-fit: contain;
+            transition: transform 0.5s;
+        }
+
+        .card-produto:hover .img-iphone {
+            transform: scale(1.05);
+        }
+
+        /* Informações do Produto */
+        .info-produto h2 {
+            font-size: 1.8em;
+            font-weight: 600;
+            color: var(--primary-white);
+            margin: 0 0 10px 0;
+        }
+
+        .descricao {
+            color: var(--light-gray);
+            font-size: 1em;
+            margin-bottom: 15px;
+            min-height: 40px;
+        }
+
+        .preco {
+            font-size: 2em;
+            font-weight: 700;
+            color: var(--primary-red);
+            margin-bottom: 25px;
+            text-shadow: 0 0 20px rgba(255, 59, 48, 0.3);
+        }
+
+        .parcelamento {
+            color: var(--light-gray);
+            font-size: 0.9em;
+            margin-bottom: 20px;
+        }
+
+        /* Botões */
+        .btn-comprar {
+            display: block;
+            width: 100%;
+            padding: 14px 0;
+            background-color: var(--primary-red);
+            color: var(--primary-white);
+            text-decoration: none;
+            font-weight: 600;
+            border-radius: 8px;
+            transition: all 0.3s ease;
+            border: 2px solid var(--primary-red);
+            text-align: center;
+        }
+
+        .btn-comprar:hover {
+            background-color: transparent;
+            color: var(--primary-red);
+            transform: translateY(-2px);
+            box-shadow: 0 10px 20px rgba(255, 59, 48, 0.3);
+        }
+
+        .btn-whatsapp {
+            background-color: #25D366;
+            color: var(--primary-white);
+            border: none;
+            border-radius: 8px;
+            padding: 10px 20px;
+            font-weight: 600;
+            transition: all 0.3s ease;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 8px;
+        }
+
+        .btn-whatsapp:hover {
+            background-color: #128C7E;
+            transform: translateY(-2px);
+        }
+
+        /* Tags */
+        .tag-lancamento {
+            position: absolute;
+            top: 20px;
+            right: 20px;
+            background-color: var(--primary-red);
+            color: var(--primary-white);
+            padding: 8px 18px;
+            font-size: 0.9em;
+            font-weight: 700;
+            border-radius: 50px;
+            z-index: 10;
+        }
+
+        .tag-seminovo {
+            position: absolute;
+            top: 20px;
+            right: 20px;
+            background-color: var(--light-gray);
+            color: var(--primary-black);
+            padding: 8px 18px;
+            font-size: 0.9em;
+            font-weight: 700;
+            border-radius: 50px;
+            z-index: 10;
+        }
+
+        /* Cores Disponíveis */
+        .cores-disponiveis {
+            display: flex;
+            gap: 8px;
+            margin: 15px 0;
+        }
+
+        .cor-option {
+            width: 20px;
+            height: 20px;
+            border-radius: 50%;
+            border: 2px solid transparent;
+            cursor: pointer;
+            transition: transform 0.2s ease;
+        }
+
+        .cor-option:hover {
+            transform: scale(1.2);
+        }
+
+        /* Features Section */
+        .features-section {
+            background-color: var(--dark-gray);
+            border-radius: 15px;
+            padding: 50px;
+            margin: 60px 0;
+            border: 2px solid #2C2C2E;
+        }
+
+        .feature-item {
+            text-align: center;
+            padding: 20px;
+        }
+
+        .feature-icon {
+            width: 60px;
+            height: 60px;
+            background-color: rgba(255, 59, 48, 0.1);
+            border: 2px solid var(--primary-red);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin: 0 auto 20px;
+            font-size: 1.5rem;
+            color: var(--primary-red);
+        }
+
+        /* Responsividade */
+        @media (max-width: 768px) {
+            .grid-produtos {
+                grid-template-columns: 1fr;
+            }
+
+            .iphone-hero {
+                padding: 80px 0 40px;
+            }
+
+            .features-section {
+                padding: 30px;
+            }
+
+            .imagem-produto {
+                height: 250px;
+            }
+        }
+
+        /* CTA Section */
+        .cta-section {
+            text-align: center;
+            padding: 60px 0;
+            margin: 50px 0;
+            background-color: var(--dark-gray);
+            border-radius: 15px;
+            border: 2px solid var(--primary-red);
+        }
+
+        /* Loading Animation */
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .fade-in-up {
+            animation: fadeInUp 0.6s ease-out forwards;
+        }
+
+        /* Section Spacing */
+        section {
+            padding: 80px 0;
+        }
+
+        .section-title {
+            position: relative;
+            padding-bottom: 20px;
+            margin-bottom: 40px;
+        }
+
+        .section-title::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 80px;
+            height: 4px;
+            background-color: var(--primary-red);
+            border-radius: 2px;
+        }
+    </style>
+</head>
+<body>
+    <!-- NAVBAR ORIGINAL (NÃO ALTERADA) -->
+    <nav class="navbar navbar-expand-lg bg-body-tertiary">
+      <div class="container-fluid">
+        <a class="navbar-brand" href="#">iSolution PB</a>
+        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+          <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarSupportedContent">
+          <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+            <li class="nav-item">
+              <a class="nav-link" href="/index">Ínicio</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" href="/quemsomos">Nosso Time</a>
+            </li>
+            <li class="nav-item dropdown">
+              <a class="nav-link dropdown-toggle active" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">Produtos</a>
+              <ul class="dropdown-menu">
+                <li><a class="dropdown-item active" href="/iphone">iPhones</a></li>
+                <li><a class="dropdown-item" href="/ipads">iPads</a></li>
+                <li><a class="dropdown-item" href="/macbooks">MacBooks</a></li>
+                <li><a class="dropdown-item" href="/acessorios">Acessórios</a></li>
+              </ul>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" href="/galeriadeclientes">Clientes</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" href="/tire_suas_duvidas">Assistente Virtual</a>
+            </li>
+          </ul>
+        </div>
+      </div>
+    </nav>
+
+    <!-- Hero Section -->
+    <section class="iphone-hero">
+        <div class="container">
+            <div class="row">
+                <div class="col-12 text-center">
+                    <span class="badge-red">
+                        <i class="bi bi-star-fill me-2"></i>Melhor Preço de João Pessoa
+                    </span>
+                    <h1 class="display-4 fw-bold page-title">Encontre Seu <span style="color: var(--primary-red)">iPhone</span> Ideal</h1>
+                    <p class="lead" style="color: var(--light-gray); max-width: 700px; margin: 0 auto;">
+                        Tecnologia Apple com garantia iSolution PB. Todos os modelos novos e seminovos com
+                        inspeção rigorosa e 1 ano de garantia.
+                    </p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Products Grid -->
+    <section>
+        <div class="container produtos-container">
+            <div class="grid-produtos">
+                <!-- iPhone 15 Pro -->
+                <div class="card-produto fade-in-up">
+                    <div class="tag-lancamento">Novo</div>
+                    <div class="imagem-produto">
+                        <img src= "{{ url_for('static', filename='Iphones/iphone_15_pro.png') }}"
+                             alt="iPhone 15 Pro"
+                             class="img-iphone">
+                    </div>
+                    <div class="info-produto">
+                        <h2>iPhone 15 Pro</h2>
+                        <p class="descricao">Chip A17 Bionic, estrutura em titânio, câmera de 48MP</p>
+
+                        <div class="cores-disponiveis">
+                            <span class="cor-option" style="background-color: #8B8B8C;" title="Titanium Natural"></span>
+                            <span class="cor-option" style="background-color: #3C3C3D;" title="Titanium Black"></span>
+                            <span class="cor-option" style="background-color: #5A5A5C;" title="Titanium Blue"></span>
+                            <span class="cor-option" style="background-color: #E3BC9A;" title="Titanium White"></span>
+                        </div>
+
+                        <div class="preco">R$ 7.999,00</div>
+                        <p class="parcelamento">12x de R$ 666,58 sem juros</p>
+
+                        <a href="#" class="btn-comprar">
+                            <i class="bi bi-cart3 me-2"></i> Comprar Agora
+                        </a>
+                    </div>
+                </div>
+
+                <!-- iPhone 15 -->
+                <div class="card-produto fade-in-up">
+                    <div class="tag-lancamento">Novo</div>
+                    <div class="imagem-produto">
+                        <img src= "{{ url_for('static', filename='Iphones/iphone_15.png') }}"
+                             alt="iPhone 15"
+                             class="img-iphone">
+                    </div>
+                    <div class="info-produto">
+                        <h2>iPhone 15</h2>
+                        <p class="descricao">Câmera de 48MP, Dynamic Island, USB-C</p>
+
+                        <div class="cores-disponiveis">
+                            <span class="cor-option" style="background-color: #FF3B30;" title="Vermelho"></span>
+                            <span class="cor-option" style="background-color: #007AFF;" title="Azul"></span>
+                            <span class="cor-option" style="background-color: #34C759;" title="Verde"></span>
+                            <span class="cor-option" style="background-color: #FFCC00;" title="Amarelo"></span>
+                        </div>
+
+                        <div class="preco">R$ 5.999,00</div>
+                        <p class="parcelamento">10x de R$ 599,90 sem juros</p>
+
+                        <a href="#" class="btn-comprar">
+                            <i class="bi bi-cart3 me-2"></i> Comprar Agora
+                        </a>
+                    </div>
+                </div>
+
+                <!-- iPhone 14 Pro -->
+                <div class="card-produto fade-in-up">
+                    <div class="imagem-produto">
+                        <img src= "{{ url_for('static', filename='Iphones/iphone14pro.png') }}"
+                             alt="iPhone 14 Pro"
+                             class="img-iphone">
+                    </div>
+                    <div class="info-produto">
+                        <h2>iPhone 14 Pro</h2>
+                        <p class="descricao">Dynamic Island, câmera de 48MP, chip A16 Bionic</p>
+
+                        <div class="cores-disponiveis">
+                            <span class="cor-option" style="background-color: #4E4E50;" title="Space Black"></span>
+                            <span class="cor-option" style="background-color: #FAD7BD;" title="Gold"></span>
+                            <span class="cor-option" style="background-color: #545454;" title="Silver"></span>
+                        </div>
+
+                        <div class="preco">R$ 6.499,00</div>
+                        <p class="parcelamento">12x de R$ 541,58 sem juros</p>
+
+                        <a href="#" class="btn-comprar">
+                            <i class="bi bi-cart3 me-2"></i> Comprar Agora
+                        </a>
+                    </div>
+                </div>
+
+                <!-- iPhone 13 -->
+                <div class="card-produto fade-in-up">
+                    <div class="tag-seminovo">Semi-Novo</div>
+                    <div class="imagem-produto">
+                        <img src= "{{ url_for('static', filename='Iphones/iPhone-13.png') }}"
+                             alt="iPhone 13"
+                             class="img-iphone">
+                    </div>
+                    <div class="info-produto">
+                        <h2>iPhone 13</h2>
+                        <p class="descricao">Chip A15 Bionic, câmera dupla, bateria de longa duração</p>
+
+                        <div class="cores-disponiveis">
+                            <span class="cor-option" style="background-color: #FF3B30;" title="Vermelho"></span>
+                            <span class="cor-option" style="background-color: #5AC8FA;" title="Azul"></span>
+                            <span class="cor-option" style="background-color: #34C759;" title="Verde"></span>
+                            <span class="cor-option" style="background-color: #FF9500;" title="Laranja"></span>
+                        </div>
+
+                        <div class="preco">R$ 3.999,00</div>
+                        <p class="parcelamento">10x de R$ 399,90 sem juros</p>
+
+                        <a href="#" class="btn-comprar">
+                            <i class="bi bi-cart3 me-2"></i> Comprar Agora
+                        </a>
+                    </div>
+                </div>
+
+                <!-- iPhone SE -->
+                <div class="card-produto fade-in-up">
+                    <div class="imagem-produto">
+                        <img src= "{{ url_for('static', filename='Iphones/iphoneSE.png') }}"
+                             alt="iPhone SE"
+                             class="img-iphone">
+                    </div>
+                    <div class="info-produto">
+                        <h2>iPhone SE</h2>
+                        <p class="descricao">Chip A15 Bionic, design clássico, preço acessível</p>
+
+                        <div class="cores-disponiveis">
+                            <span class="cor-option" style="background-color: #C7C7CC;" title="Branco"></span>
+                            <span class="cor-option" style="background-color: #1D1D1F;" title="Preto"></span>
+                            <span class="cor-option" style="background-color: #FF3B30;" title="Vermelho"></span>
+                        </div>
+
+                        <div class="preco">R$ 2.999,00</div>
+                        <p class="parcelamento">8x de R$ 374,87 sem juros</p>
+
+                        <a href="#" class="btn-comprar">
+                            <i class="bi bi-cart3 me-2"></i> Comprar Agora
+                        </a>
+                    </div>
+                </div>
+
+                <!-- iPhone 12 -->
+                <div class="card-produto fade-in-up">
+                    <div class="tag-seminovo">Semi-Novo</div>
+                    <div class="imagem-produto">
+                        <img src="{{ url_for('static', filename='Iphones/iphone12.png') }}"
+                             alt="iPhone 12"
+                             class="img-iphone">
+                    </div>
+                    <div class="info-produto">
+                        <h2>iPhone 12</h2>
+                        <p class="descricao">5G ultrarrápido, chip A14 Bionic, tela Super Retina XDR</p>
+
+                        <div class="cores-disponiveis">
+                            <span class="cor-option" style="background-color: #1D1D1F;" title="Preto"></span>
+                            <span class="cor-option" style="background-color: #F2F2F7;" title="Branco"></span>
+                            <span class="cor-option" style="background-color: #FF3B30;" title="Vermelho"></span>
+                            <span class="cor-option" style="background-color: #5AC8FA;" title="Azul"></span>
+                        </div>
+
+                        <div class="preco">R$ 3.199,00</div>
+                        <p class="parcelamento">10x de R$ 319,90 sem juros</p>
+
+                        <a href="#" class="btn-comprar">
+                            <i class="bi bi-cart3 me-2"></i> Comprar Agora
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Features Section -->
+    <section class="features-section">
+        <div class="container">
+            <div class="row mb-5">
+                <div class="col-12 text-center">
+                    <h2 class="display-5 fw-bold section-title">Por que Comprar na iSolution PB?</h2>
+                </div>
+            </div>
+
+            <div class="row g-4">
+                <div class="col-md-3 col-6">
+                    <div class="feature-item">
+                        <div class="feature-icon">
+                            <i class="bi bi-shield-check"></i>
+                        </div>
+                        <h5 class="fw-bold">1 Ano de Garantia</h5>
+                        <p class="text-gray small">Garantia estendida em todos os iPhones</p>
+                    </div>
+                </div>
+
+                <div class="col-md-3 col-6">
+                    <div class="feature-item">
+                        <div class="feature-icon">
+                            <i class="bi bi-truck"></i>
+                        </div>
+                        <h5 class="fw-bold">Entrega Rápida</h5>
+                        <p class="text-gray small">Em até 2h na Grande João Pessoa</p>
+                    </div>
+                </div>
+
+                <div class="col-md-3 col-6">
+                    <div class="feature-item">
+                        <div class="feature-icon">
+                            <i class="bi bi-arrow-repeat"></i>
+                        </div>
+                        <h5 class="fw-bold">Troca Imediata</h5>
+                        <p class="text-gray small">Troca facilitada em caso de defeito</p>
+                    </div>
+                </div>
+
+                <div class="col-md-3 col-6">
+                    <div class="feature-item">
+                        <div class="feature-icon">
+                            <i class="bi bi-credit-card"></i>
+                        </div>
+                        <h5 class="fw-bold">Parcele no Cartão</h5>
+                        <p class="text-gray small">Até 12x sem juros</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- CTA Section -->
+    <section class="cta-section">
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-8 mx-auto text-center">
+                    <h2 class="display-5 fw-bold mb-4">Não Encontrou o que Procurava?</h2>
+                    <p class="lead mb-4" style="color: var(--light-gray); max-width: 700px; margin: 0 auto;">
+                        Entre em contato conosco! Temos outros modelos disponíveis e podemos te ajudar a encontrar
+                        o iPhone perfeito para suas necessidades.
+                    </p>
+                    <div class="d-flex flex-wrap justify-content-center gap-3">
+                        <a href="https://wa.me/5583987007458" class="btn btn-lg" style="background-color: #25D366; color: white;">
+                            <i class="bi bi-whatsapp me-2"></i> Falar no WhatsApp
+                        </a>
+                        <a href="/galeriadeclientes" class="btn btn-lg btn-outline-light">
+                            <i class="bi bi-chat-left-text me-2"></i> Ver Depoimentos
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/js/bootstrap.bundle.min.js" integrity="sha384-FKyoEForCGlyvwx9Hj09JcYn3nv7wiPVlz7YYwJrWVcXK/BmnVDxM+D2scQbITxI" crossorigin="anonymous"></script>
+
+    <script>
+        // Animação para os cards
+        document.addEventListener('DOMContentLoaded', function() {
+            const cards = document.querySelectorAll('.card-produto');
+
+            cards.forEach((card, index) => {
+                card.style.opacity = '0';
+                card.style.transform = 'translateY(30px)';
+                card.style.transition = 'opacity 0.6s ease, transform 0.6s ease';
+
+                setTimeout(() => {
+                    card.style.opacity = '1';
+                    card.style.transform = 'translateY(0)';
+                }, 100 * index);
+            });
+
+            // Hover effect para as opções de cor
+            const colorOptions = document.querySelectorAll('.cor-option');
+            colorOptions.forEach(option => {
+                option.addEventListener('mouseenter', function() {
+                    this.style.transform = 'scale(1.2)';
+                    this.style.borderColor = 'var(--primary-white)';
+                });
+
+                option.addEventListener('mouseleave', function() {
+                    this.style.transform = 'scale(1)';
+                    this.style.borderColor = 'transparent';
+                });
+
+                option.addEventListener('click', function() {
+                    // Remove active class from all options
+                    colorOptions.forEach(opt => {
+                        opt.style.borderColor = 'transparent';
+                        opt.style.borderWidth = '2px';
+                    });
+
+                    // Add active class to clicked option
+                    this.style.borderColor = 'var(--primary-white)';
+                    this.style.borderWidth = '3px';
+                });
+            });
+
+            // Smooth scroll para âncoras
+            document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+                anchor.addEventListener('click', function (e) {
+                    e.preventDefault();
+                    const targetId = this.getAttribute('href');
+                    if (targetId !== '#') {
+                        const targetElement = document.querySelector(targetId);
+                        if (targetElement) {
+                            window.scrollTo({
+                                top: targetElement.offsetTop - 80,
+                                behavior: 'smooth'
+                            });
+                        }
+                    }
+                });
+            });
+        });
+    </script>
+</body>
+</html>
